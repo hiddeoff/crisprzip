@@ -1,5 +1,7 @@
 """Represents nucleic acid hybrids, either by mismatch positions or sequences."""
 
+import os
+
 import json
 import random
 from pathlib import Path
@@ -583,14 +585,33 @@ class NearestNeighborModel:
 
     @classmethod
     def load_data(cls, force=False):
-        pkg_root = Path(__file__).parents[2]
+
+        # find git root
+        def find_git_root(path):
+            while not os.path.isdir(os.path.join(path, '.git')):
+                parent = os.path.dirname(path)
+                if parent == path:
+                    raise FileNotFoundError("No .git directory found")
+                path = parent
+            return path
+
+        # navigate to git root
+        current_dir = Path().resolve()
+        package_root = find_git_root(current_dir)
+
         if cls.dna_dna_params is None or force:
-            with open(pkg_root.joinpath(cls.dna_dna_params_file), 'rb') as file:
+            with open(package_root.joinpath(cls.dna_dna_params_file), 'rb') as file:
                 cls.dna_dna_params = json.load(file)
 
         if cls.rna_dna_params is None or force:
-            with open(pkg_root.joinpath(cls.rna_dna_params_file), 'rb') as file:
+            with open(package_root.joinpath(cls.rna_dna_params_file), 'rb') as file:
                 cls.rna_dna_params = json.load(file)
+    
+        with open(package_root.joinpath(cls.dna_dna_params_file), 'rb') as file:
+            cls.dna_dna_params = json.load(file)
+
+        with open(package_root.joinpath(cls.rna_dna_params_file), 'rb') as file:
+            cls.rna_dna_params = json.load(file)
 
     @classmethod
     def set_energy_unit(cls, unit: str):
