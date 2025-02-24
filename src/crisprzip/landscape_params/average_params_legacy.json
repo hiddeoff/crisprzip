@@ -4,6 +4,7 @@
     "description": "Landscapes representing the total hybridization cost, based on mismatch patterns. Legacy version, as published by Eslami-Mossalam et al. (2022).",
     "date": "15 March 2022"
   },
+  "searcher_class": "Searcher",
   "param_values": {
     "on_target_landscape": [
       6.333715892,

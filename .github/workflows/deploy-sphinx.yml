@@ -1,6 +1,7 @@
 name: Deploy Sphinx documentation to GitHub Pages
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -21,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m venv venv312
           source venv312/bin/activate
-          pip install sphinx sphinx_rtd_theme myst-nb numpy scipy matplotlib numba joblib -e .
+          pip install -e '.[docs,jupyter]'
 
       - name: Create necessary directories
         run: |

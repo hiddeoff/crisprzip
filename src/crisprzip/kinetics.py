@@ -1,6 +1,8 @@
 """Simulate the kinetics of R-loop formation by a CRISPR(-like)
 endonuclease."""
 
+import importlib.resources
+
 import numpy as np
 
 from .matrix_expon import *
@@ -14,10 +16,10 @@ class Searcher:
     ----------
     guide_length : `int`
         Length of the nucleic acid guide N (in bp)
-    on_target_landscape : `numpy.ndarray` (N,)
+    on_target_landscape : `numpy.ndarray`, (N,)
         Contains the hybridization energies of the intermediate R-loop
         states on an on-target, relative to the PAM energy.
-    mismatch_penalties : `numpy.ndarray` (N,)
+    mismatch_penalties : `numpy.ndarray`, (N,)
         Contains the energetic penalties associated with a mismatch
         at a particular R-loop position.
     internal_rates : `dict` [`str`, `float`]
@@ -648,3 +650,59 @@ class SearcherSequenceComplex(GuidedSearcher, SearcherTargetComplex):
             SearcherTargetComplex._get_off_target_landscape(self)
         )
         return protein_na_energy + internal_na_energy
+
+
+def load_landscape(parameter_set: str):
+    """Load a parameter set describing the landscape energies for a Searcher
+
+    Parameters
+    ----------
+    parameter_set : `str`
+        Specifies which parameter set to load. This can be one of
+        the default parameter sets, distributed along with crisprzip:
+        - `sequence_params`: for sequence-specific kinetics
+        - `average_params`: for average kinetics
+        - `average_params_legacy`: for average kinetics according to Eslami-Mossalam et al. (2021)
+        Alternatively, one can provide a path to a JSON-file that describes
+        the parameter set. See the Notes for the requirements for the structure
+        of such a file.
+
+    Returns
+    -------
+    searcher_obj : `Searcher` or `BareSearcher`
+        An instance of the `Searcher` or one of its subclasses.
+
+    Notes
+    -----
+    JSON files containing parameter sets for Searcher objects should contain
+    at least the following keys:
+    - `searcher_class`, corresponding to a class in `crisprzip.kinetics`;
+    - `param_values`, with (at least) the arguments for object instantiation,
+        - `on_target_landscape`
+        - `mismatch_penalties`
+        - `internal_rates`.
+
+    """
+
+    available_paramsets = [
+        file.stem for file
+        in importlib.resources.files("crisprzip.landscape_params").iterdir()
+        if (file.is_file() and file.suffix == '.json')
+    ]
+
+    if parameter_set in available_paramsets:
+        with (importlib.resources.files("crisprzip.landscape_params")
+              .joinpath(f"{parameter_set}.json").open("r") as file):
+            landscape_params = json.load(file)
+
+    elif Path(parameter_set).is_file() and Path(parameter_set).suffix == '.json':
+        with open(Path(parameter_set), 'rb') as file:
+            landscape_params = json.load(file)
+
+    else:
+        raise ValueError(f"Could not find '{parameter_set}, neither as a"
+                         f"predefined parameter set nor as a custom JSON-file.")
+
+    searcher_cls = globals()[landscape_params["searcher_class"]]
+    searcher_obj = searcher_cls(**landscape_params['param_values'])
+    return searcher_obj

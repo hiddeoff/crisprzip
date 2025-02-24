@@ -13,6 +13,7 @@ docs/userdocs/tutorial.ipynb
 docs/devdocs/changelog.md
 docs/devdocs/contributing.md
 docs/devdocs/code_of_conduct.md
+dist/
 
 # cache
 **/__pycache__/

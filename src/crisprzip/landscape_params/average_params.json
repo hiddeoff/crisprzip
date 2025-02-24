@@ -4,6 +4,7 @@
     "description": "Landscapes representing the total hybridization cost, based on mismatch patterns.",
     "date": "5 October 2023"
   },
+  "searcher_class": "Searcher",
   "param_values": {
     "on_target_landscape": [
       3.4210014003172944,

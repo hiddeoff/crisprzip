@@ -1,13 +1,4 @@
-"""
-Methods to do (fast and parallel) matrix exponentiation.
-
-Functions:
-    exponentiate_fast(matrix, time)
-    update_rate_matrix(ref_rate_matrix, on_rate)
-    exponentiate_fast_var_onrate(ref_matrix, time, on_rates)
-    exponentiate_iterative(matrix, time)
-    exponentiate_iterative_var_onrate(ref_matrix, time, on_rates)
-"""
+"""Perform fast and parallel matrix exponentiation."""
 
 import numpy as np
 from numba import njit
@@ -15,65 +6,75 @@ from scipy import linalg
 
 
 @njit(cache=True)
-def exponentiate_fast(matrix: np.ndarray, time: np.ndarray):
-    """
-    Fast method to calculate exp(M*t), by diagonalizing matrix M.
-    Uses to the Numba package (@njit) to compile "just-in-time",
-    significantly speeding up the operations.
+def exponentiate_fast(matrix: np.ndarray, time: np.ndarray) -> np.ndarray:
+    """Fast method to calculate exp(M * t), via diagonalizing the matrix M.
+    Uses Numba's just-in-time compilation for performance optimization.
 
-    Returns None if diagnolization is problematic:
-    - singular rate matrix
-    - rate matrix with complex eigenvals
-    - overflow in the exponentiatial
-    - negative terms in exp_matrix
+    Parameters
+    ----------
+    matrix : `numpy.ndarray`, (N, N)
+        The input matrix to exponentiate.
+    time : `numpy.ndarray`, (T,)
+        A 1D array of time values at which to calculate the exponentiation.
+
+    Returns
+    -------
+    exp_matrix : `numpy.ndarray`, (N, T, N)
+        The resulting matrix exponentiation at each ``time`` step.
+        Returns `None` if:
+        - Matrix is singular
+        - Matrix has complex eigenvalues
+        - Overflow occurs in the exponential function
+        - Resulting matrix contains negative terms.
     """
 
     # preallocate result matrix
-    exp_matrix = np.zeros(shape=((matrix.shape[0],
-                                  time.shape[0],
-                                  matrix.shape[1])))
+    exp_matrix = np.zeros((matrix.shape[0], time.shape[0], matrix.shape[1]))
 
     # 1. diagonalize M = U D U_inv
-
-    # noinspection PyBroadException
     try:
         eigenvals, eigenvecs = np.linalg.eig(matrix)
         eigenvecs_inv = np.linalg.inv(eigenvecs)
     except Exception:
-        return None  # handles singular matrices
+        return None  # Handles singular matrices
     if np.any(np.iscomplex(eigenvals)):
-        return None  # skip rate matrices with complex eigenvalues
+        return None  # Skip complex eigenvalue matrices
 
     for i in range(time.size):
         t = time[i]
 
         # 2. B = exp(Dt)
         exponent_matrix = eigenvals.real * t
-        if np.any(exponent_matrix > 700.):
-            return None  # prevents np.exp overflow
+        if np.any(exponent_matrix > 700.0):
+            return None  # Avoids np.exp overflow
         b_matrix = np.diag(np.exp(exponent_matrix))
 
         # 3. exp(Mt) = U B U_inv = U exp(Dt) U_inv
         distr = eigenvecs @ b_matrix @ eigenvecs_inv
-
-        # Previously, strong negative terms ( <-1E-3 ) were ignored to
-        # fall back on the iterative method. Now, we set all negative
-        # terms to zero , as that seems to be more stable than the iterative
-        # method.
-
-        if np.any(distr < 0.):
+        if np.any(distr < 0.0):
             distr = np.maximum(distr, 0)
-
         exp_matrix[:, i, :] = distr
 
     return exp_matrix
 
 
 @njit(cache=True)
-def update_rate_matrix(ref_rate_matrix: np.ndarray, on_rate: float) \
-        -> np.ndarray:
-    """Takes a reference rate matrix and updates only the on_rate.
-    This function supports the compilation of the function below."""
+def update_rate_matrix(ref_rate_matrix: np.ndarray,
+                       on_rate: float) -> np.ndarray:
+    """Update a reference rate matrix with a specific on-rate.
+
+    Parameters
+    ----------
+    ref_rate_matrix : `numpy.ndarray`, (N, N)
+        The reference transition rate matrix.
+    on_rate : `float`
+        The rate of transition to update in the matrix.
+
+    Returns
+    -------
+    rate_matrix : `numpy.ndarray`, (N, N)
+        A copy of the reference rate matrix with the ``on_rates`` value updated.
+    """
 
     rate_matrix = ref_rate_matrix.copy()
     rate_matrix[0, 0] = -on_rate
@@ -83,23 +84,27 @@ def update_rate_matrix(ref_rate_matrix: np.ndarray, on_rate: float) \
 
 @njit(cache=True)
 def exponentiate_fast_var_onrate(ref_matrix: np.ndarray, time: float,
-                                 on_rates: np.ndarray):
-    """
-    Fast method to calculate exp(M*t), by diagonalizing matrix M.
-    Uses to the Numba package (@njit) to compile "just-in-time",
-    significantly speeding up the operations.
+                                 on_rates: np.ndarray) -> np.ndarray:
+    """Compute exp(M * t) for varying on-rates using diagonalization.
 
-    Returns None if diagnolization is problematic:
-    - singular rate matrix
-    - rate matrix with complex eigenvals
-    - overflow in the exponentiatial
-    - negative terms in exp_matrix
+    Parameters
+    ----------
+    ref_matrix : `numpy.ndarray`, (N, N)
+        The reference transition rate matrix.
+    time : `float`
+        The time at which the exponentiation is evaluated.
+    on_rates : `numpy.ndarray`, (K,)
+        A 1D array of varying on-rates to update the reference matrix.
+
+    Returns
+    -------
+    exp_matrix : `numpy.ndarray`, (N, K, N)
+        The resulting matrix exponentiation for each ``on_rates`` value.
+        Returns `None` if diagonalization fails or produces invalid results.
     """
 
-    # preallocate result matrix
-    exp_matrix = np.zeros(shape=((ref_matrix.shape[0],
-                                  on_rates.shape[0],
-                                  ref_matrix.shape[1])))
+    exp_matrix = np.zeros(
+        (ref_matrix.shape[0], on_rates.shape[0], ref_matrix.shape[1]))
 
     for i, k_on in enumerate(on_rates):
         rate_matrix = update_rate_matrix(ref_matrix, k_on)
@@ -113,28 +118,51 @@ def exponentiate_fast_var_onrate(ref_matrix: np.ndarray, time: float,
     return exp_matrix
 
 
-def exponentiate_iterative(matrix: np.ndarray, time: np.ndarray):
-    """The safer method to calculate exp(M*t), looping over the values
-    in t and using the scipy function for matrix exponentiation."""
+def exponentiate_iterative(matrix: np.ndarray, time: np.ndarray) -> np.ndarray:
+    """Iteratively compute exp(M * t) using `scipy.linalg.expm`.
 
-    exp_matrix = np.zeros(shape=((matrix.shape[0],
-                                  time.shape[0],
-                                  matrix.shape[1])))
+    Parameters
+    ----------
+    matrix : `numpy.ndarray`, (N, N)
+        The input matrix to exponentiate.
+    time : `numpy.ndarray`, (T,)
+        A 1D array of time values at which to calculate the exponentiation.
+
+    Returns
+    -------
+    exp_matrix : `numpy.ndarray`, (N, T, N)
+        The resulting matrix exponentiation at each ``time`` step.
+    """
+
+    exp_matrix = np.zeros((matrix.shape[0], time.shape[0], matrix.shape[1]))
     for i in range(time.size):
         exp_matrix[:, i, :] = linalg.expm(matrix * time[i])
     return exp_matrix
 
 
-def exponentiate_iterative_var_onrate(ref_matrix: np.ndarray,
-                                      time: float, on_rates: np.ndarray):
-    """The safer method to calculate exp(M*t), looping over the values
-    in on_rate and using the scipy function for matrix exponentiation."""
-    exp_matrix = np.zeros(shape=((ref_matrix.shape[0],
-                                  on_rates.shape[0],
-                                  ref_matrix.shape[1])))
+def exponentiate_iterative_var_onrate(ref_matrix: np.ndarray, time: float,
+                                      on_rates: np.ndarray) -> np.ndarray:
+    """Iteratively compute exp(M * t) for varying on-rates using
+    `scipy.linalg.expm`.
+
+    Parameters
+    ----------
+    ref_matrix : `numpy.ndarray`, (N, N)
+        The reference transition rate matrix.
+    time : `float`
+        The time at which the exponentiation is evaluated.
+    on_rates : `numpy.ndarray`, (K,)
+        A 1D array of varying on-rates to update the reference matrix.
+
+    Returns
+    -------
+    exp_matrix : `numpy.ndarray`, (N, K, N)
+        The resulting matrix exponentiation for each value in ``on-rates``.
+    """
+
+    exp_matrix = np.zeros(
+        (ref_matrix.shape[0], on_rates.shape[0], ref_matrix.shape[1]))
     for i, k_on in enumerate(on_rates):
-        rate_matrix = update_rate_matrix(
-            ref_matrix, k_on
-        )
+        rate_matrix = update_rate_matrix(ref_matrix, k_on)
         exp_matrix[:, i, :] = linalg.expm(rate_matrix * time)
     return exp_matrix

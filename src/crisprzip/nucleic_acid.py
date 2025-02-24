@@ -1,25 +1,10 @@
-"""
-Contains classes representing nucleic acid in different ways. Primarily
-supports the hybridization_kinetics module.
+"""Represents nucleic acid hybrids, either by mismatch positions or sequences."""
 
-Classes:
-    MismatchPattern
-    TargetDna
-    GuideTargetHybrid
-    NearestNeighborModel
-
-Functions:
-    format_point_mutations()
-    get_tempdir(
-    clear_cache()
-    get_hybridization_energy()
-    make_hybr_energy_func()
-"""
-
+import importlib.resources
 import json
 import random
 from pathlib import Path
-from typing import Union, List, Tuple
+from typing import Union, List, Tuple, Callable
 
 import numpy as np
 from functools import lru_cache
@@ -29,8 +14,8 @@ from numpy.typing import ArrayLike
 
 def format_point_mutations(protospacer: str,
                            target_sequence: str) -> List[str]:
-    """Compares protospacer and target sequence and writes point
-    mutations as a list (e.g. [A04G, C07T])."""
+    """List the point mutations between ``target_sequence`` and ``protospacer``."""
+
     if len(protospacer) != len(target_sequence):
         raise ValueError("Protospacer and target should be equally long.")
 
@@ -45,30 +30,22 @@ def format_point_mutations(protospacer: str,
 
 
 class MismatchPattern:
-    """A class indicating the positions of the mismatched
-    bases in a target sequence. Assumes a 3'-to-5' DNA direction.
+    """Positions of the mismatched bases bases in a target sequence.
 
     Attributes
     ----------
-    pattern: np.ndarray
+    pattern : `numpy.ndarray`
         Array with True indicating mismatched basepairs
-    length: int
+    length : `int`
         Guide length
-    mm_num: int
+    mm_num : `int`
         Number of mismatches in the array
-    is_on_target: bool
+    is_on_target : `bool`
         Indicates whether the array is the on-target array
 
-    Methods
-    -------
-    from_string(mm_array_string)
-        Alternative constructor, reading strings
-    from_mm_pos(guide_length[, mm_pos_list])
-        Alternative constructor, based on mismatch positions
-    make_random(guide_length, mm_num[, rng])
-        Create mismatch array with randomly positioned mismatches
-    get_mm_pos()
-        Gives positions of the mismatches
+    Notes
+    -----
+    Assumes a 3'-to-5' DNA direction. (CRISPR-Cas9 directionality).
     """
 
     def __init__(self, array: np.typing.ArrayLike):
@@ -98,7 +75,7 @@ class MismatchPattern:
     @classmethod
     def from_mm_pos(cls, guide_length: int, mm_pos_list: list = None,
                     zero_based_index=False):
-        """Alternative constructor. Uses 1-based indexing by default. """
+        """Alternative constructor. Uses 1-based indexing by default."""
         array = np.zeros(guide_length)
 
         if mm_pos_list is None:
@@ -136,10 +113,9 @@ class MismatchPattern:
 
 
 def make_hybr_energy_func(protospacer: str,
-                          weight: Union[float, Tuple[float, float]] = None):
-    """Wrapper of get_hybridization_energy that makes a hybridization
-    energy function which ony takes offtarget_seq as an argument, with
-    the protospacer having been predefined."""
+                          weight: Union[float, Tuple[float, float]] = None) \
+        -> Callable:
+    """Make a hybridization energy function."""
 
     def get_hybr_energy_fixed_protospacer(offtarget_seq: str):
         return get_hybridization_energy(protospacer, offtarget_seq,
@@ -154,38 +130,35 @@ def get_hybridization_energy(protospacer: str,
                              weight: Union[float,
                                            Tuple[float, float]] = None) \
         -> np.ndarray:
-
-    """
-    Calculates the free energy cost associated with the progressive
-    formation of an R-loop between an RNA guide and target DNA strand.
+    """Calculate the free energy cost of R-loop formation.
 
     Parameters
     ----------
-    protospacer: str
+    protospacer : `str`
         Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
         possibly preceded by the upstream sequence.
-    offtarget_seq: str
+    offtarget_seq : `str`
         Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
         preceded by the upstream sequence. If provided, overrules
-        the 'mutations' parameter.
-    mutations: str
+        the ``mutations`` parameter.
+    mutations : `str`
         Mismatch desciptors (in the form "A02T") describing how the
         target deviates from the protospacer. Multiple mismatches
         should be space-separated. Is empty by default, indicating
         no mismatches (=on-target hybridization energy).
-    weight: Union[float, Tuple[float, float]]
+    weight : `float` or `tuple`[`float`], optional
         Optional weighing of the dna opening energy and rna duplex energy.
-        If None (default), no weighin is applied. If float, both dna and
-        rna energies are multiplied by the weight parameter. If tuple
-        of two floats, the first value is used as a multiplier for the
+        If `None` (default), no weighing is applied. If `float`, both DNA and
+        RNA energies are multiplied by the weight parameter. If `tuple``
+        of two `float`s, the first value is used as a multiplier for the
         DNA opening energy, and the second is used as a multiplier for the
         RNA-DNA hybridization energy.
 
+
     Returns
     -------
-    hybridization_energy: np.ndarray
+    hybridization_energy : `numpy.ndarray`
         Free energies required to create an R-loop.
-
     """
 
     # Handling 'mutation' argument
@@ -218,6 +191,26 @@ def get_hybridization_energy(protospacer: str,
 @lru_cache
 def get_na_energies_cached(protospacer: str, offtarget_seq: str = None) -> \
         Tuple[Tuple[float, ], Tuple[float, ]]:
+    """Calculate the DNA and RNA contributoins to the R-loop cost (with caching).
+
+    Parameters
+    ----------
+    protospacer : `str`
+        Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
+        possibly preceded by the upstream sequence.
+    offtarget_seq : `str`
+        Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
+        preceded by the upstream sequence. If provided, overrules
+        the ``mutations`` parameter.
+
+    Returns
+    -------
+    dna_opening_energy : `tuple` [`float`]
+        Free energies required to open the DNA duplex
+    rna_duplex_energy : `tuple` [`float`]
+        Free energies required to form the RNA duplex
+    """
+
 
     # Prepare target DNA and guide RNA
     hybrid = GuideTargetHybrid.from_cas9_offtarget(offtarget_seq,
@@ -239,9 +232,12 @@ def get_na_energies_cached(protospacer: str, offtarget_seq: str = None) -> \
 def find_average_mm_penalties(protospacer: str,
                               weight: Union[float,
                                             Tuple[float, float]] = None):
-    """Finds the effective penalties for all possible single point mutations
+    """Find the effective penalties for single point mutations.
+
+    Finds the effective penalties for all possible single point mutations
     on a target, and averages over them to return the position-dependent
-    mismatch penalty due to undetermined mismatches."""
+    mismatch penalty due to undetermined mismatches.
+    """
 
     # prepare NearestNeighborModel
     nnmodel = NearestNeighborModel
@@ -276,28 +272,20 @@ def find_average_mm_penalties(protospacer: str,
 
 class TargetDna:
     """
-    Represents the double-stranded DNA site to be opened during
-    R-loop formation.
+    Double-stranded DNA site to be opened during R-loop formation.
 
     Attributes
     ----------
-    seq2: str
+    seq2 : `str`
         The "target sequence", as present on the nontarget DNA strand
         (=protospacer), in 5'-to-3'notation.
-    seq1: str
+    seq1 : `str`
         The target strand (=spacer), in 3'-to-5' notation
-    upstream_bp: str
+    upstream_bp: `str`
         The basepair upstream (5'-side) of the nontarget strand.
-    dnstream_bp: str
+    dnstream_bp: `str`
         The basepair downstream (3'-side) of the nontarget strand. For Cas9,
         corresponds to the last basepair of the PAM.
-
-    Methods
-    -------
-    from_cas9_target()
-        Makes a TargetDna instance from a cas9 target sequence string.
-    make_random()
-        Make a random target dna of specified length.
     """
 
     bp_map = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
@@ -326,7 +314,7 @@ class TargetDna:
                                 self.bp_map[downstream_nt])
 
     def __str__(self):
-        """Generates a handy string representation of the DNA duplex."""
+        """Generate a handy string representation of the DNA duplex."""
 
         strand2 = self.seq2
         strand1 = self.seq1
@@ -367,9 +355,11 @@ class TargetDna:
 
     @classmethod
     def from_cas9_target(cls, full_target: str) -> 'TargetDna':
-        """Makes a TargetDna instance from a cas9 target sequence string.
+        """Make a TargetDna instance from a cas9 target sequence string.
+
         Assumes a length of 20 nt, followed by a PAM. If the target
-        sequence is longer than 23, it includes the upstream nt as well."""
+        sequence is longer than 23, it includes the upstream nt as well.
+        """
 
         # no upstream nt, target + PAM
         if full_target[-2:] != "GG":
@@ -382,9 +372,11 @@ class TargetDna:
         return cls(target_seq, upstream_nt, downstream_nt)
 
     def apply_point_mut(self, mutation: str):
-        """Changes DNA hybrid according to a single point mutation.
+        """Change DNA hybrid according to a single point mutation.
+
         Mutation strings have the form A02T, where the NTS nucleotide A
-        at position 2 would get replaced by a nucleotide T."""
+        at position 2 would get replaced by a nucleotide T.
+        """
 
         old_nt = mutation[0]
         pmut_pos = len(self.seq2) - int(mutation[1:3])
@@ -414,36 +406,16 @@ class TargetDna:
 
 
 class GuideTargetHybrid:
-    """
-    Represents an ssRNA guide interacting with ds DNA site through
-    R-loop formation.
+    """A ssRNA guide interacting with ds DNA site through R-loop formation.
 
     Attributes
     ----------
-    guide: str
+    guide : `str`
         The RNA guide strand, in 5'-to-3' notation
-    target: TargetDna
+    target : `TargetDna`
         The dsDNA site to be interrogated
-    state: int
+    state : `int`
         Length of the R-loop. Only for illustration purposes for now.
-
-    Methods
-    -------
-    from_cas9_protospacer()
-        Instantiate GuideTargetHybrid from protospacer and point
-        mutations.
-    from_cas9_offtarget()
-        Instantiate GuideTargetHybrid from protospacer and point
-        mutations.
-    apply_point_mut()
-        Instantiate GuideTargetHybrid with point mutation applied
-        to target DNA.
-    set_rloop_state()
-        Update the R-loop state.
-    find_mismatches()
-        Identifies the positions of mismatching guide-target basepairs.
-    get_mismatch_pattern()
-        Returns MismatchPattern object of guide-target construct
     """
 
     bp_map = {'A': 'U', 'C': 'G', 'G': 'C', 'T': 'A'}
@@ -454,8 +426,7 @@ class GuideTargetHybrid:
         self.state = state
 
     def __str__(self):
-        """Generates a handy string representation of the R-loop.
-        Use set_rloop_state() to update this representation."""
+        """Generate a handy string representation of the R-loop."""
         dna_repr = str(self.target).split('\n')
         hybrid_bps = (''.join(map(str, self.find_mismatches()))
                       .replace('1', "\u00B7")
@@ -477,19 +448,18 @@ class GuideTargetHybrid:
     @classmethod
     def from_cas9_protospacer(cls, protospacer: str, mismatches: str = '',
                               state: int = 0) -> 'GuideTargetHybrid':
-        """Instantiate GuideTargetHybrid from protospacer and point
-        mutations.
+        """Instantiate from protospacer and point mutations.
 
         Parameters
         ----------
-        protospacer: str
+        protospacer : `str`
             Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
             possibly preceded by the upstream sequence.
-        mismatches: str
+        mismatches : `str`
             Mismatch desciptors (in the form "A02T") describing how the
-            target deviates from the protospacer. Multiple mismatches
+            target deviates from the ``protospacer``. Multiple mismatches
             should be space-separated.
-        state: int
+        state : `int`
             R-loop hybridization state
         """
 
@@ -506,18 +476,17 @@ class GuideTargetHybrid:
     @classmethod
     def from_cas9_offtarget(cls, offtarget_seq: str, protospacer: str,
                             state: int = 0) -> 'GuideTargetHybrid':
-        """Instantiate GuideTargetHybrid from protospacer and point
-        mutations.
+        """Instantiate from protospacer and point mutations.
 
         Parameters
         ----------
-        offtarget_seq: str
+        offtarget_seq : `str`
             Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
             preceded by the upstream sequence.
-        protospacer: str
+        protospacer : `str`
             Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
             possibly preceded by the upstream sequence.
-        state: int
+        state : `int`
             R-loop hybridization state
         """
 
@@ -537,8 +506,7 @@ class GuideTargetHybrid:
         self.state = rloop_state
 
     def find_mismatches(self):
-        """Identifies the positions of mismatching guide-target
-        basepairs."""
+        """Identify the positions of mismatching guide-target basepairs."""
         return list(find_mismatches_cached(self.target.seq1, self.guide))
 
     def get_mismatch_pattern(self) -> MismatchPattern:
@@ -547,6 +515,7 @@ class GuideTargetHybrid:
 
 @lru_cache
 def find_mismatches_cached(seq1, guide):
+    """"Identify the positions of mismatching guide-target basepairs (cached)."""
     bp_map = GuideTargetHybrid.bp_map
     mismatches = []
     for i, n in enumerate(reversed(seq1)):
@@ -556,20 +525,17 @@ def find_mismatches_cached(seq1, guide):
 
 
 class NearestNeighborModel:
-    """
+    """A model to estimate nucleic acid stability.
+
     An implementation of the nearest neighbor model predicting energies
     for guide RNA-target DNA R-loops. Instantiating this class is only
     necessary to load the parameter files, a single object can be used
     to make all energy landscapes.
 
-    Methods
-    -------
-    load_data()
-        Loads the energy parameters.
-    set_energy_unit()
-        Change energy units betweel kBT and kcal/mol.
-    get_hybridization_energy()
-        Finds the hybridization energies for the R-loop formation.
+    Attributes
+    ----------
+    energy_unit : {'kbt', 'kcalmol'}
+        Unit of ouput free energy. For kBT, assuming a temperature of 20°C.
 
     Notes
     -----
@@ -609,8 +575,8 @@ class NearestNeighborModel:
     """
 
     # paths relative to crisprzip source root
-    dna_dna_params_file = "data/nucleicacid/santaluciahicks2004.json"
-    rna_dna_params_file = "data/nucleicacid/alkan2018.json"
+    dna_dna_params_file = "santaluciahicks2004.json"
+    rna_dna_params_file = "alkan2018.json"
     dna_dna_params: dict = None
     rna_dna_params: dict = None
 
@@ -618,13 +584,14 @@ class NearestNeighborModel:
 
     @classmethod
     def load_data(cls, force=False):
-        pkg_root = Path(__file__).parents[2]
         if cls.dna_dna_params is None or force:
-            with open(pkg_root.joinpath(cls.dna_dna_params_file), 'rb') as file:
+            with (importlib.resources.files("crisprzip.nucleicacid_params")
+                  .joinpath(cls.dna_dna_params_file).open("r") as file):
                 cls.dna_dna_params = json.load(file)
 
         if cls.rna_dna_params is None or force:
-            with open(pkg_root.joinpath(cls.rna_dna_params_file), 'rb') as file:
+            with (importlib.resources.files("crisprzip.nucleicacid_params")
+                  .joinpath(cls.rna_dna_params_file).open("r") as file):
                 cls.rna_dna_params = json.load(file)
 
     @classmethod
@@ -647,28 +614,31 @@ class NearestNeighborModel:
                                  weight: Union[float,
                                                Tuple[float, float]] = None) \
             -> np.ndarray:
-        """Calculates the energy that is required to open an R-loop
-         between the guide RNA and target DNA of the hybrid object
-         for each R-loop length. Converts energy units if necessary.
+        """Calculate the R-loop cost.
 
-         Parameters
-         ----------
-         hybrid: GuideTargetHybrid
+        Calculates theenergy that is required to open an R-loop
+        between the guide RNA and target DNA of the hybrid object
+        for each R-loop length. Converts energy units if necessary.
+
+        Parameters
+        ----------
+        hybrid : `GuideTargetHybrid`
             Hybrid object of which the hybridization energies are calculated
-         weight: Union[float, Tuple[float, float]]
+        weight : `float` or `tuple`[`flaot`], optional
             Optional weighing of the dna opening energy and rna duplex energy.
-            If None (default), no weighin is applied. If float, both dna and
-            rna energies are multiplied by the weight parameter. If tuple
-            of two floats, the first value is used as a multiplier for the
+            If `None` (default), no weighing is applied. If `float`, both DNA and
+            RNA energies are multiplied by the weight parameter. If `tuple``
+            of two `float`s, the first value is used as a multiplier for the
             DNA opening energy, and the second is used as a multiplier for the
             RNA-DNA hybridization energy.
 
-         Returns
-         -------
-         energy: np.ndarray
+        Returns
+        -------
+        energy : `numpy.ndarray`
             The energy required for hybridization (in the desired units of
             energy), for each step in the R-loop formation process.
-         """
+        """
+
         dna_opening_energy = cls.dna_opening_energy(hybrid)
         rna_duplex_energy = cls.rna_duplex_energy(hybrid)
         if weight is None:
@@ -689,16 +659,19 @@ class NearestNeighborModel:
 
     @classmethod
     def dna_opening_energy(cls, hybrid: GuideTargetHybrid) -> np.ndarray:
-        """Calculated following the methods from Alkan et al. (2018).
+        """Get the energy required to open the DNA duplex.
+
+        Calculated following the methods from Alkan et al. (2018).
         The DNA opening energy is the sum of all the basestack energies
-        in the sequence (negative)."""
+        in the sequence (negative).
+        """
 
         stacking_energies = cls.dna_dna_params["stacking energies"]
 
         def average_basestack(side='downstream'):
-            """If down- or upstream basepair is unknown, this function
-            loops over all options to find the average basestack
-            energy."""
+            # If down- or upstream basepair is unknown, this function
+            # loops over all options to find the average basestack
+            # energy.
             basestack_energy = 0
             possible_bps = [('A', 'T'), ('C', 'G'),
                             ('G', 'C'), ('T', 'A')]
@@ -755,7 +728,9 @@ class NearestNeighborModel:
 
     @classmethod
     def rna_duplex_energy(cls, hybrid: GuideTargetHybrid) -> np.ndarray:
-        """Calculated following the methods from Alkan et al. (2018).
+        """Get the energy required to create the RNA:DNA duplex.
+
+        Calculated following the methods from Alkan et al. (2018).
         The RNA duplex energy has three contributions: 1) basestacks,
         2) internal loops, 3) external loops / terminals. Alkan et al.
         only look at external loops, but here, we instead look
@@ -767,8 +742,8 @@ class NearestNeighborModel:
         stacking_energies = cls.rna_dna_params['stacking energies']
 
         def basestack_energy(i: int):
-            """Locates basestacks in R-loop of length i and
-            returns their total energy."""
+            # Locates basestacks in R-loop of length i and
+            # returns their total energy.
             if i < 2:
                 return 0.
 
@@ -787,8 +762,8 @@ class NearestNeighborModel:
             return energy
 
         def internal_loops_energy(i: int):
-            """Locates internal loops in R-loop of length i and
-            returns their total energy."""
+            # Locates internal loops in R-loop of length i and
+            # returns their total energy.
             if i < 3:
                 return 0.
 
@@ -863,9 +838,9 @@ class NearestNeighborModel:
             return energy
 
         def external_loops_energy(i: int):
-            """Locates external loops in R-loop of length i and
-            returns their total energy. Unused right now because
-            we're considering all terminal energies instead."""
+            # Locates external loops in R-loop of length i and
+            # returns their total energy. Unused right now because
+            # we're considering all terminal energies instead.
 
             mm_pos = hybrid.find_mismatches()[:i]
             partial_rev_guide = hybrid.guide[-1:-1 - i:-1]
@@ -899,8 +874,8 @@ class NearestNeighborModel:
             return energy
 
         def terminals_energy(i: int):
-            """Locates terminals in R-loop of length i and
-            returns their total energy."""
+            # Locates terminals in R-loop of length i and
+            # returns their total energy.
 
             mm_pos = hybrid.find_mismatches()[:i]
             partial_rev_guide = hybrid.guide[-1:-1 - i:-1]

@@ -1,3 +1,7 @@
+"""Plotting functionality for `Searcher` objects."""
+
+from typing import Dict
+
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.lines import Line2D
@@ -6,24 +10,31 @@ from .kinetics import *
 
 
 class SearcherPlotter:
-    """Base class that underlies plotting functionality in the Searcher
-    and SearcherTargetComplex classes of this module, and the animation
-    functionality of the LogAnalyzer and DashboardVideo classes of the
-    analysis module. A user should not directly interact with this
-    class.
+    """Collection of plotting functionality for `Searcher` objects.
 
+    Base class that underlies plotting functionality in the `Searcher`
+    and `SearcherTargetComplex` classes of the `crisprzip.kinetics` module.
+
+    Notes
+    -----
     This class is built up to support 'blitting': redrawing only the
     parts of a figure that are updated. This significantly speeds up
     the video making process in the analysis module. It contains 4
     types of methods:
-    1) prepare ... canvas  creates or adapts Figure and Axes objects
-                           such that data can later be added
-    2) prepare ... lines   adds properly styled lines to the canvas
-                           that do not yet contain data (the term line
-                           here includes dots or other shapes)
-    3) update ...          adds data to the pre-configured line
-    4) plot ...            combines the above 3 methods to make a
-                           complete plot
+
+    1. *prepare ... canvas*
+       Creates or adapts Figure and Axes objects such that data can later be
+       added.
+
+    2. *prepare ... lines*
+       Adds properly styled lines to the canvas that do not yet contain data.
+       *(The term "line" here includes dots or other shapes.)*
+
+    3. *update ...*
+       Adds data to the pre-configured line.
+
+    4. *plot ...*
+       Combines the above three methods to make a complete plot.
     """
 
     # Some general style definitions
@@ -37,11 +48,8 @@ class SearcherPlotter:
     def __init__(self, searcher: Searcher):
         self.searcher = searcher
 
-    def prepare_landscape_canvas(self, y_lims: tuple = None, title: str = '',
-                                 axs: Axes = None) -> Axes:
-        """Creates or adapts Figure and Axes objects such
-        that an on-/off-target/penalties landscape line can later be
-        added."""
+    def prepare_landscape_canvas(self, y_lims: Tuple[float, float] = None,
+                                 title: str = '', axs: Axes = None) -> Axes:
         searcher = self.searcher
         if axs is None:
             _, axs = plt.subplots(1, 1, figsize=(4, 3))
@@ -75,12 +83,10 @@ class SearcherPlotter:
         axs.grid(True)
         return axs
 
-    def prepare_rates_canvas(self, y_lims: tuple = None,
+    def prepare_rates_canvas(self, y_lims: Tuple[float, float] = None,
                              title: str = 'Transition rates',
                              axs: Axes = None,
-                             extra_rates: dict = None) -> Axes:
-        """Creates or adapts Figure and Axes objects such
-        that rates points can later be added."""
+                             extra_rates: Dict[str, float] = None) -> Axes:
         searcher = self.searcher
         if axs is None:
             _, axs = plt.subplots(1, 1, figsize=(3, 3))
@@ -118,20 +124,17 @@ class SearcherPlotter:
 
     def prepare_landscape_line(self, axs: Axes, color='cornflowerblue',
                                **plot_kwargs) -> Line2D:
-        """Adds styled lines to the landscape canvas"""
         line, = axs.plot([], [], color=color,
                          **self.line_style, **plot_kwargs)
         return line
 
     def prepare_rates_line(self, axs: Axes, color='cornflowerblue',
                            **plot_kwargs) -> Line2D:
-        """"Adds styled lines (points) to the rates canvas"""
         plot_kwargs['linestyle'] = ''
         line = self.prepare_landscape_line(axs, color=color, **plot_kwargs)
         return line
 
     def update_on_target_landscape(self, line: Line2D) -> None:
-        """Updates landscape line to represent on-target landscape"""
         searcher = self.searcher
         line.set_data(
             np.arange(1 - searcher.pam_detection, searcher.guide_length + 2),
@@ -142,8 +145,8 @@ class SearcherPlotter:
             )
         )
 
-    def update_solution_energies(self, lines: list, on_rates: list) -> None:
-        """Updates the free energy level of the solution state(s)"""
+    def update_solution_energies(self, lines: List[Line2D],
+                                 on_rates: List[float]) -> None:
         searcher = self.searcher
         for line, on_rate in zip(lines, on_rates):
             line.set_data(
@@ -152,7 +155,6 @@ class SearcherPlotter:
             )
 
     def update_mismatches(self, line: Line2D) -> None:
-        """Updates landscape line to represent mismatches"""
         searcher = self.searcher
         line.set_data(
             np.arange(1, searcher.guide_length + 1),
@@ -160,7 +162,6 @@ class SearcherPlotter:
         )
 
     def update_rates(self, line: Line2D, extra_rates: dict = None) -> None:
-        """Updates rate points to represent forward rates"""
         searcher = self.searcher
 
         if extra_rates is not None:
@@ -174,10 +175,32 @@ class SearcherPlotter:
             forward_rates
         )
 
-    def plot_on_target_landscape(self, y_lims: tuple = None,
+    def plot_on_target_landscape(self, y_lims: Tuple[float, float] = None,
                                  color='cornflowerblue', axs: Axes = None,
-                                 on_rates: list = None, **plot_kwargs) -> Axes:
-        """Creates complete on-target landscape plot"""
+                                 on_rates: List[float] = None,
+                                 **plot_kwargs) -> Axes:
+        """Create complete on-target landscape plot
+
+        Parameters
+        ----------
+        y_lims : `tuple`[`float`], optional
+            Tuple specifying the y-axis limits for the plot. Defaults to `None`,
+            in which case the limits are determined based on the landscape data.
+        color : `str`, optional
+            Color of the plotted lines for the off-target landscape.
+            Defaults to 'firebrick'.
+        axs : `matplotlib.axes.Axes`, optional
+            Axes to draw the plot on. If not provided, a new
+            figure and axes are created.
+        on_rates : `list`[`float`], optional
+            Kinetic rates used to calculate solution energies. If not
+            provided, no solution energies are plotted.
+
+        Returns
+        -------
+        Axes: `matplotlib.axes.Axes`
+            The axes containing the complete plot.
+        """
 
         if y_lims is None and on_rates is not None:
             searcher = self.searcher
@@ -212,12 +235,35 @@ class SearcherPlotter:
 
     def plot_off_target_landscape(self,
                                   mismatch_positions: MismatchPattern = None,
-                                  y_lims: tuple = None,
+                                  y_lims: Tuple[float, float] = None,
                                   color='firebrick', axs: Axes = None,
-                                  on_rates: list = None,
+                                  on_rates: List[float] = None,
                                   **plot_kwargs) -> Axes:
-        """Creates complete off-target landscape plot, based on the
-        mismatch positions array"""
+        """Create complete off-target landscape plot.
+    
+        Parameters
+        ----------
+        mismatch_positions : `MismatchPattern`, optional
+            Positions of mismatches in the target sequence. If not provided,
+            the method shows the on-target landscape only.
+        y_lims : `tuple`[`float`], optional
+            Tuple specifying the y-axis limits for the plot. Defaults to `None`,
+            in which case the limits are determined based on the landscape data.
+        color : `str`, optional
+            Color of the plotted lines for the off-target landscape.
+            Defaults to 'firebrick'.
+        axs : `matplotlib.axes.Axes`, optional
+            Axes to draw the plot on. If not provided, a new
+            figure and axes are created.
+        on_rates : `list`[`float`], optional
+            Kinetic rates used to calculate solution energies. If not
+            provided, no solution energies are plotted.
+
+        Returns
+        -------
+        Axes: `matplotlib.axes.Axes`
+            The axes containing the complete plot.
+        """
 
         if isinstance(self.searcher, SearcherTargetComplex):
             searcher = self.searcher
@@ -279,10 +325,29 @@ class SearcherPlotter:
 
         return axs
 
-    def plot_mismatch_penalties(self, y_lims: tuple = None,
+    def plot_mismatch_penalties(self, y_lims: Tuple[float, float] = None,
                                 color='firebrick', axs: Axes = None,
                                 **plot_kwargs) -> Axes:
-        """Creates complete mismatch landscape plot"""
+        """Creates complete mismatch landscape plot.
+
+        Parameters
+        ----------
+        y_lims : `tuple`[`float`], optional
+            Tuple specifying the y-axis limits for the plot. Defaults to `None`,
+            in which case the limits are determined based on the landscape data.
+        color : `str`, optional
+            Color of the plotted lines for the off-target landscape.
+            Defaults to 'firebrick'.
+        axs : `matplotlib.axes.Axes`, optional
+            Axes to draw the plot on. If not provided, a new
+            figure and axes are created.
+
+        Returns
+        -------
+        Axes: `matplotlib.axes.Axes`
+            The axes containing the complete plot.
+        """
+
         axs = self.prepare_landscape_canvas(
             y_lims,
             title='Mismatch penalties',
@@ -292,10 +357,32 @@ class SearcherPlotter:
         self.update_mismatches(line)
         return axs
 
-    def plot_internal_rates(self, y_lims: tuple = None,
+    def plot_internal_rates(self, y_lims: Tuple[float, float] = None,
                             color='cornflowerblue', axs: Axes = None,
-                            extra_rates: dict = None, **plot_kwargs) -> Axes:
-        """Creates complete forward rates plot"""
+                            extra_rates: Dict[str, float] = None,
+                            **plot_kwargs) -> Axes:
+        """Create complete forward rates plot.
+
+        Parameters
+        ----------
+        y_lims : `tuple`[`float`], optional
+            Tuple specifying the y-axis limits for the plot. Defaults to `None`,
+            in which case the limits are determined based on the landscape data.
+        color : `str`, optional
+            Color of the plotted lines for the off-target landscape.
+            Defaults to 'firebrick'.
+        axs : `matplotlib.axes.Axes`, optional
+            Axes to draw the plot on. If not provided, a new
+            figure and axes are created.
+        extra_rates : `dict`[`str`, `float`], optional
+            Additional rates to add to the plot.
+
+        Returns
+        -------
+        Axes: `matplotlib.axes.Axes`
+            The axes containing the complete plot.
+        """
+
         axs = self.prepare_rates_canvas(
             y_lims,
             title='Transition rates',
