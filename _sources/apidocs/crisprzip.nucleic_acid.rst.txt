@@ -1,0 +1,7 @@
+crisprzip.nucleic\_acid module
+==============================
+
+.. automodule:: crisprzip.nucleic_acid
+   :members:
+   :show-inheritance:
+   :undoc-members:
