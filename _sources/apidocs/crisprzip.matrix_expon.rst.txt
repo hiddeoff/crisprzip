@@ -1,0 +1,7 @@
+crisprzip.matrix\_expon module
+==============================
+
+.. automodule:: crisprzip.matrix_expon
+   :members:
+   :show-inheritance:
+   :undoc-members:
