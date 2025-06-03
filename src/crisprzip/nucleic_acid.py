@@ -135,12 +135,21 @@ def get_hybridization_energy(protospacer: str,
     Parameters
     ----------
     protospacer : `str`
-        Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-        possibly preceded by the upstream sequence.
+        Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+        - 20 nts: 5'-target-3'. All nucleotides should be specified.
+        - 23 nts: 5'-target-PAM-3'. The PAM should be specified or provided as 'NGG'.
+        - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be specified
+            or provided as 'N'.
+
     offtarget_seq : `str`
-        Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
-        preceded by the upstream sequence. If provided, overrules
-        the ``mutations`` parameter.
+        Full sequence of the (off-)target. Can be provided in 3 formats:
+
+        - 20 nts: 5'-target-3'. All nucleotides should be specified.
+        - 23 nts: 5'-target-PAM-3'. The PAM should be specified or provided as 'NGG'.
+        - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be specified
+            or provided as 'N'.
+
     mutations : `str`
         Mismatch desciptors (in the form "A02T") describing how the
         target deviates from the protospacer. Multiple mismatches
@@ -163,8 +172,9 @@ def get_hybridization_energy(protospacer: str,
 
     # Handling 'mutation' argument
     if offtarget_seq is None:
-        hybrid = GuideTargetHybrid.from_cas9_protospacer(protospacer,
-                                                         mutations)
+        hybrid = GuideTargetHybrid.from_cas9_protospacer(
+            protospacer, mutations
+        )
         # Recursive calling to include in caching
         offtarget_seq = hybrid.target.seq2 + protospacer[-3:]
         if hybrid.target.upstream_nt is not None:
@@ -196,12 +206,20 @@ def get_na_energies_cached(protospacer: str, offtarget_seq: str = None) -> \
     Parameters
     ----------
     protospacer : `str`
-        Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-        possibly preceded by the upstream sequence.
+        Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+        - 20 nts: 5'-target-3'. All nucleotides should be specified.
+        - 23 nts: 5'-target-PAM-3'. The PAM should be specified or provided as 'NGG'.
+        - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be specified
+            or provided as 'N'.
+
     offtarget_seq : `str`
-        Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
-        preceded by the upstream sequence. If provided, overrules
-        the ``mutations`` parameter.
+        Full sequence of the (off-)target: 5'-20nt-PAM-3'. Can be provided in 3 formats:
+
+        - 20 nts: 5'-target-3'. All nucleotides should be specified.
+        - 23 nts: 5'-target-PAM-3'. The PAM should be specified or provided as 'NGG'.
+        - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be specified
+            or provided as 'N'.
 
     Returns
     -------
@@ -357,19 +375,46 @@ class TargetDna:
     def from_cas9_target(cls, full_target: str) -> 'TargetDna':
         """Make a TargetDna instance from a cas9 target sequence string.
 
-        Assumes a length of 20 nt, followed by a PAM. If the target
-        sequence is longer than 23, it includes the upstream nt as well.
+        Parameters
+        ----------
+        full_target : `str`
+            Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
         """
 
-        # no upstream nt, target + PAM
-        if full_target[-2:] != "GG":
-            raise ValueError("Full target should end with 5'-NGG-3' PAM.")
+        upstream_nt = None
+        downstream_nt = None
 
-        downstream_nt = full_target[-3]
-        upstream_nt = (None if len(full_target) <= 23
-                       else full_target[-24])
-        target_seq = full_target[-23:-3]
-        return cls(target_seq, upstream_nt, downstream_nt)
+        # length 24: saves upstream nt, reduces to 23 nts
+        if len(full_target) == 24:
+
+            if full_target[0] != 'N':
+                upstream_nt = full_target[0]
+
+            full_target = full_target[1:]
+
+        # length 23: saves PAM, reduces to 20 nts
+        if len(full_target) == 23:
+
+            if full_target[-2:] != "GG":
+                raise ValueError("Full target should end with 5'-NGG-3' PAM.")
+
+            if full_target[-3] != 'N':
+                downstream_nt = full_target[-3]
+
+            full_target = full_target[:-3]
+
+        # force length 20
+        if not len(full_target) == 20:
+            raise ValueError("Please provide target sequence in 20, 23 or "
+                             "24 nt format.")
+
+        return cls(full_target, upstream_nt, downstream_nt)
 
     def apply_point_mut(self, mutation: str):
         """Change DNA hybrid according to a single point mutation.
@@ -453,8 +498,14 @@ class GuideTargetHybrid:
         Parameters
         ----------
         protospacer : `str`
-            Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-            possibly preceded by the upstream sequence.
+            Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
+
         mismatches : `str`
             Mismatch desciptors (in the form "A02T") describing how the
             target deviates from the ``protospacer``. Multiple mismatches
@@ -481,11 +532,23 @@ class GuideTargetHybrid:
         Parameters
         ----------
         offtarget_seq : `str`
-            Full sequence of the (off-)target: 5'-20nt-PAM-3', possibly
-            preceded by the upstream sequence.
+            Full sequence of the (off-)target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
+
         protospacer : `str`
-            Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-            possibly preceded by the upstream sequence.
+            Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
+
         state : `int`
             R-loop hybridization state
         """

@@ -135,8 +135,14 @@ class BareSearcher(Searcher):
         searcher : `Searcher`
             Object to be transformed.
         protospacer : `str`
-            Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-            possibly preceded by the upstream sequence.
+            Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
+
         weight : `float` or `tuple` [`float`], optional
             Optional weighing of the DNA opening energy and RNA duplex energy.
             If None (default), no weighing is applied. If float, both DNA and
@@ -187,8 +193,14 @@ class BareSearcher(Searcher):
         Parameters
         ----------
         protospacer : `str`
-            Full sequence of the protospacer/on-target: 5'-20nt-PAM-3',
-            possibly preceded by the upstream sequence.
+            Full sequence of the protospacer/on-target. Can be provided in 3 formats:
+
+            - 20 nts: 5'-target-3'. All nucleotides should be specified.
+            - 23 nts: 5'-target-PAM-3'. The PAM should be specified or
+                provided as 'NGG'.
+            - 24 nts: 5'-upstream_nt-target-PAM-3'. The upstream_nt can be
+                specified or provided as 'N'.
+
         weight : `float` or `tuple` [`float`], optional
             Optional weighing of the DNA opening energy and RNA duplex energy.
             If None (default), no weighing is applied. If float, both DNA and
