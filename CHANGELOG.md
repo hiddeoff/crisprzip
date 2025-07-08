@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Major bugfix: R-loop cost is now properly converted to units kBT (at 
   room temperature, 20 Celsius). In all previous versions, R-loop cost 
   was reported in units kcal/mol, being a factor ~1.7 too small.
+- End-to-end test no longer passes automatically. Test values are updated 
+  according to new R-loop costs.
 
 ### Added
 - Inclusion of Nearest-Neighbor values from Banerjee et al. (2020) for 
