@@ -187,15 +187,14 @@ def get_hybridization_energy(protospacer: str,
 
     # do calculations
     out = get_na_energies_cached(protospacer, offtarget_seq)
-    dna_energy = np.array(out[0])
-    rna_energy = np.array(out[1])
+    dna_energy = np.array(out[0])  # in kBT
+    rna_energy = np.array(out[1])  # in kBT
     if weight is None:
         return dna_energy + rna_energy
     elif isinstance(weight, (float, int, np.floating, np.integer)):
         return weight * (dna_energy + rna_energy)
     elif type(weight) is tuple:
-        return (weight[0] * dna_energy +
-                weight[1] * rna_energy)
+        return weight[0] * dna_energy + weight[1] * rna_energy
 
 
 @lru_cache
@@ -238,10 +237,11 @@ def get_na_energies_cached(protospacer: str, offtarget_seq: str = None) -> \
     nnmodel = NearestNeighborModel
     nnmodel.load_data()
     nnmodel.set_energy_unit("kbt")
+    nnmodel.set_temperature(20)
 
     # do calculations
-    dna_opening_energy = nnmodel.dna_opening_energy(hybrid)
-    rna_duplex_energy = nnmodel.rna_duplex_energy(hybrid)
+    dna_opening_energy = nnmodel.dna_opening_energy(hybrid)  # in kBT
+    rna_duplex_energy = nnmodel.rna_duplex_energy(hybrid)    # in kBT
 
     # hashable output
     return tuple(dna_opening_energy), tuple(rna_duplex_energy)
@@ -261,6 +261,7 @@ def find_average_mm_penalties(protospacer: str,
     nnmodel = NearestNeighborModel
     nnmodel.load_data()
     nnmodel.set_energy_unit("kbt")
+    nnmodel.set_temperature(20)
 
     on_target_hybrid = GuideTargetHybrid.from_cas9_protospacer(protospacer)
     u_ontarget = nnmodel.get_hybridization_energy(on_target_hybrid,
@@ -644,6 +645,7 @@ class NearestNeighborModel:
     rna_dna_params: dict = None
 
     energy_unit = "kbt"  # alternative: kcalmol
+    temperature = 20     # 20 deg Celsius = 293.15 K
 
     @classmethod
     def load_data(cls, force=False):
@@ -662,13 +664,17 @@ class NearestNeighborModel:
         cls.energy_unit = unit
 
     @classmethod
+    def set_temperature(cls, temperature):
+        cls.temperature = temperature  # in deg Celsius
+
+    @classmethod
     def convert_units(cls, energy_value: Union[float, np.ndarray]):
 
         if cls.energy_unit == "kcalmol":
             return energy_value
 
         elif cls.energy_unit == "kbt":
-            ref_temp = 310.15  # 310.15 deg K = 37 deg C
+            ref_temp = cls.temperature + 273.15
             gas_constant = 1.9872E-3  # R = N_A * k_B [units kcal / (K mol)]
             return energy_value / (gas_constant * ref_temp)
 
@@ -702,18 +708,14 @@ class NearestNeighborModel:
             energy), for each step in the R-loop formation process.
         """
 
-        dna_opening_energy = cls.dna_opening_energy(hybrid)
-        rna_duplex_energy = cls.rna_duplex_energy(hybrid)
+        dna_opening_energy = cls.dna_opening_energy(hybrid)  # in kBT
+        rna_duplex_energy = cls.rna_duplex_energy(hybrid)    # in kBT
         if weight is None:
-            return cls.convert_units(
-                dna_opening_energy + rna_duplex_energy
-            )
+            return dna_opening_energy + rna_duplex_energy
         elif type(weight) is float:
-            return weight * cls.convert_units(
-                dna_opening_energy + rna_duplex_energy
-            )
+            return weight * (dna_opening_energy + rna_duplex_energy)
         elif type(weight) is tuple:
-            return cls.convert_units(
+            return (
                 weight[0] * dna_opening_energy +
                 weight[1] * rna_duplex_energy
             )
@@ -727,6 +729,17 @@ class NearestNeighborModel:
         Calculated following the methods from Alkan et al. (2018).
         The DNA opening energy is the sum of all the basestack energies
         in the sequence (negative).
+
+        Parameters
+        ----------
+        hybrid : `GuideTargetHybrid`
+            Hybrid object of which the hybridization energies are calculated
+
+        Returns
+        -------
+        open_energy : `numpy.ndarray`
+            The energy required for opening the DNA duplex (in the desired
+            units of energy), for each step in the R-loop formation process.
         """
 
         stacking_energies = cls.dna_dna_params["stacking energies"]
@@ -787,18 +800,30 @@ class NearestNeighborModel:
         else:
             open_energy[-1] -= average_basestack("upstream")
 
-        return open_energy
+        return cls.convert_units(open_energy)
 
     @classmethod
     def rna_duplex_energy(cls, hybrid: GuideTargetHybrid) -> np.ndarray:
-        """Get the energy required to create the RNA:DNA duplex.
+        """Get the energy required to create the RNA:DNA hybrid.
 
         Calculated following the methods from Alkan et al. (2018).
         The RNA duplex energy has three contributions: 1) basestacks,
         2) internal loops, 3) external loops / terminals. Alkan et al.
         only look at external loops, but here, we instead look
         at both basepair terminals, whether or not they are part of
-        an external loop."""
+        an external loop.
+
+        Parameters
+        ----------
+        hybrid : `GuideTargetHybrid`
+            Hybrid object of which the hybridization energies are calculated
+
+        Returns
+        -------
+        duplex_energy : `numpy.ndarray`
+            The energy required for creating the RNA:DNA hybrid (in the desired
+            units of energy), for each step in the R-loop formation process.
+        """
 
         loop_energies = cls.rna_dna_params['loop energies']
         terminal_energies = cls.rna_dna_params['terminal penalties']
@@ -973,4 +998,4 @@ class NearestNeighborModel:
             terminals_energy(i)
         ) for i in range(len(hybrid.guide) + 1)
         ])
-        return duplex_energy
+        return cls.convert_units(duplex_energy)
