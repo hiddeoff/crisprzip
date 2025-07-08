@@ -1,0 +1,54 @@
+{
+  "name": "banerjee2020",
+  "metadata": {
+    "model": {
+      "nucleic acid": "RNA/DNA duplex",
+      "includes terminals": "True",
+      "includes mismatches": "False",
+      "includes internal loops": "False",
+      "experimental conditions": {
+        "temperature celsius": 37.0,
+        "nacl concentration molar": 0.1
+      },
+      "energy unit": "kcal/mol",
+      "basestack notation": "rUC/dAT means 5'-UC-3' RNA with 3'-AT-5' DNA"
+    },
+    "references": {
+      "banarjee2020": {
+        "authors": "Dipanwita Banerjee, Hisae Tateishi-Karimata, Tatsuya Ohyama, Saptarshi Ghosh, Tamaki Endoh, Shuntaro Takahashi, Naoki Sugimoto",
+        "title": "Improved nearest-neighbor parameters for the stability of RNA/DNA hybrids under a physiological condition",
+        "year": 2020,
+        "doi": "10.1093/nar/gkaa572",
+        "description": "Studying the effects of lower (physiological) salt conditions on (matching) RNA/DNA hybrids."
+      }
+    }
+  },
+  "initiation": 2.0,
+  "terminal penalties": {
+    "rA-dT": 0.3,
+    "rC-dG": 0.0,
+    "rG-dC": 0.0,
+    "rU-dA": 0.3
+  },
+  "loop energies": {},
+  "stacking energies": {
+    "2mer": {
+      "rAA/dTT": -0.7,
+      "rAC/dTG": -1.5,
+      "rAG/dTC": -1.3,
+      "rAU/dTA": -0.4,
+      "rCA/dGT": -1.2,
+      "rCC/dGG": -1.7,
+      "rCG/dGC": -1.4,
+      "rCU/dGA": -0.4,
+      "rGA/dCT": -1.5,
+      "rGC/dCG": -2.0,
+      "rGG/dCC": -2.3,
+      "rGU/dCA": -1.4,
+      "rUA/dAT": -0.5,
+      "rUC/dAG": -1.4,
+      "rUG/dAC": -1.6,
+      "rUU/dAA":  0.2
+    }
+  }
+}
