@@ -160,7 +160,7 @@ class BareSearcher(Searcher):
 
         weight : `float` or `tuple` [`float`], optional
             Optional weighing of the DNA opening energy and RNA duplex energy.
-            If None (default), no weighing is applied. If float, both DNA and
+            If None (default), no weighing is applied. If `float`, both DNA and
             RNA energies are multiplied by the weight parameter. If `tuple`
             of two `float`s, the first value is used as a multiplier for the
             DNA opening energy, and the second is used as a multiplier for the
@@ -219,7 +219,8 @@ class BareSearcher(Searcher):
 
         weight : `float` or `tuple` [`float`], optional
             Optional weighing of the DNA opening energy and RNA duplex energy.
-            If None (default), no weighing is applied. If float, both DNA and
+            If None (default), the instance attribute `weight` is used. (If
+            that is None too, no weighin is applied.) If `float`, both DNA and
             RNA energies are multiplied by the weight parameter. If `tuple`
             of two `float`s, the first value is used as a multiplier for the
             DNA opening energy, and the second is used as a multiplier for the
