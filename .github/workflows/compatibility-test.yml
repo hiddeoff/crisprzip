@@ -1,0 +1,48 @@
+name: Cross-platform compatibility and test execution
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.10', '3.11', '3.12']
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Create virtual environment
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          PYTHON_SANITIZED=$(echo "${{ matrix.python-version }}" | tr -d .)
+          python -m venv venv${PYTHON_SANITIZED}
+      - name: Install dependencies and tests
+        shell: bash
+        run: |
+          PYTHON_SANITIZED=$(echo "${{ matrix.python-version }}" | tr -d .)
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            source venv${PYTHON_SANITIZED}/Scripts/activate
+          else
+            source venv${PYTHON_SANITIZED}/bin/activate
+          fi
+          pip install -e ".[tests]"
+
+      - name: Run specific tests
+        shell: bash
+        run: |
+          PYTHON_SANITIZED=$(echo "${{ matrix.python-version }}" | tr -d .)
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            source venv${PYTHON_SANITIZED}/Scripts/activate
+          else
+            source venv${PYTHON_SANITIZED}/bin/activate
+          fi
+          pytest tests/cleavage_binding_prediction/test_cleavage_binding_prediction.py -v
