@@ -1,6 +1,7 @@
 # CRISPRzip
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Test Status](https://github.com/hiddeoff/crisprzip/actions/workflows/test_pipeline.yml/badge.svg)
+![TUDelft DCC](https://img.shields.io/badge/tu_delft-DCC-black?style=flat&label=TU%20Delft&labelColor=%2300A6D6%20&color=%23000000&link=https%3A%2F%2Fdcc.tudelft.nl%2F) 
 
 Welcome to the codebase of CRISPRzip from the [Depken Lab](https://depkenlab.tudelft.nl/) at TU
 Delft.
@@ -27,12 +28,56 @@ targeting fidelity.* Nature Communications.
 [10.1038/s41467-022-28994-2](https://doi.org/10.1038/s41467-022-28994-2)
 
 ## Installation
-CRISPRzip is on [PyPi](https://pypi.org/) and can be installed 
+CRISPRzip is available on [PyPi](https://pypi.org/) and can be installed 
 with [pip](https://pip.pypa.io/en/stable/).
 
+### User installation
+Although CRISPRzip can be directly installed from pip, creating a virtual 
+environment makes it easier to manage dependencies. Below you can see some 
+intructions on how to generate a virtual environment with 
+[venv](https://docs.python.org/3/library/venv.html) assuming you already 
+have python installed in a bash-like terminal.
+
 ```shell
+python -m venv crisprzip-venv
+source crisprzip-venv/bin/activate
 pip install crisprzip
 ```
+
+### Developer installation
+To be able to make changes and contributions to CRISPRzip, you will need to 
+get your own copy of the source code and install software dependencies on 
+your own. Assuming you have a python and git installed in a bash-like 
+terminal, the installation process can be done with the following 
+instructions.
+
+```shell
+git clone https://github.com/hiddeoff/crisprzip.git
+cd crisprzip
+python -m venv crisprzip-venv
+source crisprzip-venv/bin/activate
+pip install -e .
+```
+
+Please use our 
+[contributing guidelines](https://github.com/hiddeoff/crisprzip/blob/main/CONTRIBUTING.md)
+ if you would like us to consider your developments in a future CRISPRzip 
+release
+
+### Verifying installation
+CRISPRzip development includes a cross-platform compatibility and test 
+[workflow](.github/workflows/compatibility-test.yml). If you would like to 
+verify your local installation, please follow the Developer Installation 
+instructions, then run the following test.
+
+```shell
+source crisprzip-venv/bin/activate
+pip install -e '.[tests]'  # installs pytest and pandas
+pytest tests/cleavage_binding_prediction/test_cleavage_binding_prediction.py -v
+```
+
+You can also follow the user installation and execute the code in the 
+Usage section below.
 
 ## Usage
 CRISPRzip makes predictions about cleavage and binding activity on on- and

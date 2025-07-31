@@ -7,6 +7,7 @@ venv/
 venv311/
 venv312/
 venv313/
+crisprzip-venv/
 docs/_build/
 docs/jupyter_execute/
 docs/userdocs/tutorial.ipynb
