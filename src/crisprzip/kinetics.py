@@ -746,3 +746,68 @@ def load_landscape(parameter_set: str):
     searcher_cls = globals()[landscape_params["searcher_class"]]
     searcher_obj = searcher_cls(**landscape_params['param_values'])
     return searcher_obj
+
+
+def load_k_bind(parameter_set: str, context='in_vitro'):
+    """Load a parameter set describing the landscape energies for a Searcher
+
+    Parameters
+    ----------
+    parameter_set : `str`
+        Specifies which parameter set to load. This can be one of
+        the default parameter sets, distributed along with crisprzip:
+        - `sequence_params`: for sequence-specific kinetics
+        - `average_params`: for average kinetics
+        - `average_params_legacy`: for average kinetics according to Eslami-Mossalam et al. (2021)
+        Alternatively, one can provide a path to a JSON-file that describes
+        the parameter set. See the Notes for the requirements for the structure
+        of such a file.
+    context : `str`, optional
+        Specifies which binding rate to load. Default is ``"in_vitro"``,
+        corresponding to the specific buffer conditions of the train
+        data. Availability of contexts depends on the parameter set.
+
+    Returns
+    -------
+    k_bind : `float`
+        The rate at which a PAM site is bound by Cas9.gRNA (in units nM⁻¹ s⁻¹).
+
+    Notes
+    -----
+    JSON files containing parameter sets for binding rates should contain
+    at least the following keys:
+    - `param_values`,
+        - `binding_rates`
+            - `in_vitro`
+            - `context2`, optional
+            - `context3`, optional
+            - etcetera.
+
+    """
+
+    available_paramsets = [
+        file.stem for file
+        in importlib.resources.files("crisprzip.landscape_params").iterdir()
+        if (file.is_file() and file.suffix == '.json')
+    ]
+
+    if parameter_set in available_paramsets:
+        with (importlib.resources.files("crisprzip.landscape_params")
+              .joinpath(f"{parameter_set}.json").open("r") as file):
+            landscape_params = json.load(file)
+
+    elif Path(parameter_set).is_file() and Path(parameter_set).suffix == '.json':
+        with open(Path(parameter_set), 'rb') as file:
+            landscape_params = json.load(file)
+
+    else:
+        raise ValueError(f"Could not find '{parameter_set}, neither as a"
+                         f"predefined parameter set nor as a custom JSON-file.")
+
+    k_bind_dict = landscape_params['param_values']['binding_rates']
+    if context in k_bind_dict.keys():
+        k_bind = k_bind_dict[context]
+        return k_bind
+    else:
+        raise ValueError(f"Could not find context '{context}' in the parameter "
+                         f"set.")
