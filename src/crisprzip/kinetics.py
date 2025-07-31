@@ -119,6 +119,21 @@ class BareSearcher(Searcher):
     due to nucleic acid interactions as determined in the nucleic_acid module.
     """
 
+    def __init__(self,
+                 on_target_landscape: ArrayLike,
+                 mismatch_penalties: ArrayLike,
+                 internal_rates: dict,
+                 pam_detection=True,
+                 weight: Union[float, Tuple[float, float]] = None,
+                 *args, **kwargs):
+        super().__init__(
+            on_target_landscape=on_target_landscape,
+            mismatch_penalties=mismatch_penalties,
+            internal_rates=internal_rates,
+            pam_detection=pam_detection,
+            *args, **kwargs)
+        self.weight = weight
+
     @classmethod
     def from_searcher(cls, searcher, protospacer: str,
                       weight: Union[float, Tuple[float, float]] = None,
@@ -178,6 +193,7 @@ class BareSearcher(Searcher):
             internal_rates=searcher.internal_rates,
             pam_detection=searcher.pam_detection,
             protospacer=protospacer,  # for the GuidedSearcher constructor
+            weight=weight,
             *args, **kwargs
         )
 
@@ -215,6 +231,9 @@ class BareSearcher(Searcher):
             New instance of the `Searcher` class.
         """
 
+        if weight is None:
+            weight = self.weight
+
         ontarget_na_energies = get_hybridization_energy(
             protospacer=protospacer,
             weight=weight
@@ -235,6 +254,10 @@ class BareSearcher(Searcher):
                        weight: Union[float, Tuple[float, float]] = None) \
             -> 'GuidedSearcher':
         """Create a GuidedSearcher object."""
+
+        if weight is None:
+            weight = self.weight
+
         return GuidedSearcher(
             on_target_landscape=self.on_target_landscape,
             mismatch_penalties=self.mismatch_penalties,
@@ -255,6 +278,10 @@ class BareSearcher(Searcher):
                        weight: Union[float, Tuple[float, float]] = None) \
             -> 'SearcherSequenceComplex':
         """Instantiate a `SearcherSequenceComplex`."""
+
+        if weight is None:
+            weight = self.weight
+
         return SearcherSequenceComplex(self.on_target_landscape,
                                        self.mismatch_penalties,
                                        self.internal_rates,
@@ -274,10 +301,10 @@ class GuidedSearcher(BareSearcher):
         super().__init__(on_target_landscape=on_target_landscape,
                          mismatch_penalties=mismatch_penalties,
                          internal_rates=internal_rates,
+                         weight=weight,
                          *args, **kwargs)
         self.protospacer = None
         self.guide_rna = None
-        self.weight = weight
         self.set_on_target(protospacer)
 
     def to_searcher(self, *args, **kwargs) -> Searcher:
@@ -289,7 +316,8 @@ class GuidedSearcher(BareSearcher):
         return BareSearcher(
             on_target_landscape=self.on_target_landscape,
             mismatch_penalties=self.mismatch_penalties,
-            internal_rates=self.internal_rates
+            internal_rates=self.internal_rates,
+            weight=self.weight,
         )
 
     def set_on_target(self, protospacer: str) -> None:
