@@ -58,6 +58,6 @@
     "binding_rates": {
       "in_vitro": 0.1
     },
-    "na_weight": 0.71
+    "weight": 0.71
   }
 }
