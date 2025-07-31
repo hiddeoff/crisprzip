@@ -5,6 +5,17 @@ All notable changes to CRISPRzip will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-07-31
+### Fixed
+- Sequence and average parameter sets are updated to correspond with
+  the proper R-loop cost calculations.
+
+### Added
+- Functionality to save R-loop cost weighing as parameter 'weight' to
+  parameter sets and load them as a BareSearcher attribute.
+- Function to load binding rates from parameter set files.
+
+
 ## [1.2.0] - 2025-07-08
 ### Fixed
 - Major bugfix: R-loop cost is now properly converted to units kBT (at 
