@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crisprzip package &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/about.html">About CRISPRzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.kinetics.html">crisprzip.kinetics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">crisprzip package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidocs/crisprzip.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="crisprzip-package">
+<h1>crisprzip package<a class="headerlink" href="#crisprzip-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.coarsegrain.html#crisprzip.coarsegrain.CoarseGrainedComplex"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.coarsegrain.html#crisprzip.coarsegrain.CoarseGrainedComplex.get_coarse_grained_rates"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedComplex.get_coarse_grained_rates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.coarsegrain.html#crisprzip.coarsegrain.CoarseGrainedSequenceComplex"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedSequenceComplex</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.coarsegrain.html#crisprzip.coarsegrain.coarse_grain_landscape"><code class="docutils literal notranslate"><span class="pre">coarse_grain_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.kinetics.html">crisprzip.kinetics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher.bind_guide_rna"><code class="docutils literal notranslate"><span class="pre">BareSearcher.bind_guide_rna()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher.from_searcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher.from_searcher()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher.probe_sequence"><code class="docutils literal notranslate"><span class="pre">BareSearcher.probe_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher.probe_target"><code class="docutils literal notranslate"><span class="pre">BareSearcher.probe_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.BareSearcher.to_searcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher.to_searcher()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.GuidedSearcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.GuidedSearcher.probe_sequence"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.probe_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.GuidedSearcher.set_on_target"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.set_on_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.GuidedSearcher.to_bare_searcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.to_bare_searcher()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.GuidedSearcher.to_searcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.to_searcher()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher"><code class="docutils literal notranslate"><span class="pre">Searcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.guide_length"><code class="docutils literal notranslate"><span class="pre">Searcher.guide_length</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.on_target_landscape"><code class="docutils literal notranslate"><span class="pre">Searcher.on_target_landscape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.mismatch_penalties"><code class="docutils literal notranslate"><span class="pre">Searcher.mismatch_penalties</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.internal_rates"><code class="docutils literal notranslate"><span class="pre">Searcher.internal_rates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.pam_detection"><code class="docutils literal notranslate"><span class="pre">Searcher.pam_detection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.calculate_solution_energy"><code class="docutils literal notranslate"><span class="pre">Searcher.calculate_solution_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.get_forward_rate_array"><code class="docutils literal notranslate"><span class="pre">Searcher.get_forward_rate_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.Searcher.probe_target"><code class="docutils literal notranslate"><span class="pre">Searcher.probe_target()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherSequenceComplex"><code class="docutils literal notranslate"><span class="pre">SearcherSequenceComplex</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.target_mismatches"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.target_mismatches</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.off_target_landscape"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.off_target_landscape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.get_bound_fraction"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_bound_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.get_cleaved_fraction"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_cleaved_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.get_rate_matrix"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_rate_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex.solve_master_equation"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.solve_master_equation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.load_k_bind"><code class="docutils literal notranslate"><span class="pre">load_k_bind()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.load_landscape"><code class="docutils literal notranslate"><span class="pre">load_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.matrix_expon.html#crisprzip.matrix_expon.exponentiate_fast"><code class="docutils literal notranslate"><span class="pre">exponentiate_fast()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.matrix_expon.html#crisprzip.matrix_expon.exponentiate_fast_var_onrate"><code class="docutils literal notranslate"><span class="pre">exponentiate_fast_var_onrate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.matrix_expon.html#crisprzip.matrix_expon.exponentiate_iterative"><code class="docutils literal notranslate"><span class="pre">exponentiate_iterative()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.matrix_expon.html#crisprzip.matrix_expon.exponentiate_iterative_var_onrate"><code class="docutils literal notranslate"><span class="pre">exponentiate_iterative_var_onrate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.matrix_expon.html#crisprzip.matrix_expon.update_rate_matrix"><code class="docutils literal notranslate"><span class="pre">update_rate_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.guide"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.guide</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.target"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.state"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.state</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.apply_point_mut"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.apply_point_mut()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.bp_map"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.bp_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.find_mismatches"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.find_mismatches()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.from_cas9_offtarget"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.from_cas9_offtarget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.from_cas9_protospacer"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.from_cas9_protospacer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.get_mismatch_pattern"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.get_mismatch_pattern()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.GuideTargetHybrid.set_rloop_state"><code class="docutils literal notranslate"><span class="pre">GuideTargetHybrid.set_rloop_state()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern"><code class="docutils literal notranslate"><span class="pre">MismatchPattern</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.pattern"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.pattern</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.length"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.length</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.mm_num"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.mm_num</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.is_on_target"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.is_on_target</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.from_mm_pos"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.from_mm_pos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.from_string"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.from_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.from_target_sequence"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.from_target_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.get_mm_pos"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.get_mm_pos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern.make_random"><code class="docutils literal notranslate"><span class="pre">MismatchPattern.make_random()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.energy_unit"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.energy_unit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.convert_units"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.convert_units()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.dna_dna_params"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.dna_dna_params</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.dna_dna_params_file"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.dna_dna_params_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.dna_opening_energy"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.dna_opening_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#id0"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.energy_unit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.get_hybridization_energy"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.get_hybridization_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.load_data"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.rna_dna_params"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.rna_dna_params</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.rna_dna_params_file"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.rna_dna_params_file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.rna_duplex_energy"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.rna_duplex_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.set_energy_unit"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.set_energy_unit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.set_temperature"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.set_temperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.NearestNeighborModel.temperature"><code class="docutils literal notranslate"><span class="pre">NearestNeighborModel.temperature</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna"><code class="docutils literal notranslate"><span class="pre">TargetDna</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.seq2"><code class="docutils literal notranslate"><span class="pre">TargetDna.seq2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.seq1"><code class="docutils literal notranslate"><span class="pre">TargetDna.seq1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.upstream_bp"><code class="docutils literal notranslate"><span class="pre">TargetDna.upstream_bp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.dnstream_bp"><code class="docutils literal notranslate"><span class="pre">TargetDna.dnstream_bp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.apply_point_mut"><code class="docutils literal notranslate"><span class="pre">TargetDna.apply_point_mut()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.bp_map"><code class="docutils literal notranslate"><span class="pre">TargetDna.bp_map</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.from_cas9_target"><code class="docutils literal notranslate"><span class="pre">TargetDna.from_cas9_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.TargetDna.make_random"><code class="docutils literal notranslate"><span class="pre">TargetDna.make_random()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.find_average_mm_penalties"><code class="docutils literal notranslate"><span class="pre">find_average_mm_penalties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.find_mismatches_cached"><code class="docutils literal notranslate"><span class="pre">find_mismatches_cached()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.format_point_mutations"><code class="docutils literal notranslate"><span class="pre">format_point_mutations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.get_hybridization_energy"><code class="docutils literal notranslate"><span class="pre">get_hybridization_energy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.get_na_energies_cached"><code class="docutils literal notranslate"><span class="pre">get_na_energies_cached()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.make_hybr_energy_func"><code class="docutils literal notranslate"><span class="pre">make_hybr_energy_func()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.plotting.html">crisprzip.plotting module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.label_style"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.label_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.line_style"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.line_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.plot_internal_rates"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.plot_internal_rates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.plot_mismatch_penalties"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.plot_mismatch_penalties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.plot_off_target_landscape"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.plot_off_target_landscape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.plot_on_target_landscape"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.plot_on_target_landscape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.prepare_landscape_canvas"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.prepare_landscape_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.prepare_landscape_line"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.prepare_landscape_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.prepare_rates_canvas"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.prepare_rates_canvas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.prepare_rates_line"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.prepare_rates_line()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.tick_style"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.tick_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.title_style"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.title_style</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.update_mismatches"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.update_mismatches()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.update_on_target_landscape"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.update_on_target_landscape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.update_rates"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.update_rates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crisprzip.plotting.html#crisprzip.plotting.SearcherPlotter.update_solution_energies"><code class="docutils literal notranslate"><span class="pre">SearcherPlotter.update_solution_energies()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-crisprzip">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-crisprzip" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
