@@ -1,8 +1,8 @@
 # CRISPRzip
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17818248.svg)](https://doi.org/10.5281/zenodo.17818248)
 ![Test Status](https://github.com/hiddeoff/crisprzip/actions/workflows/test_pipeline.yml/badge.svg)
 ![TUDelft DCC](https://img.shields.io/badge/tu_delft-DCC-black?style=flat&label=TU%20Delft&labelColor=%2300A6D6%20&color=%23000000&link=https%3A%2F%2Fdcc.tudelft.nl%2F) 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17818249.svg)](https://doi.org/10.5281/zenodo.17818249)
 
 Welcome to the codebase of CRISPRzip from the [Depken Lab](https://depkenlab.tudelft.nl/) at TU
 Delft.
