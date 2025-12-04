@@ -4,7 +4,10 @@ authors:
 - family-names: "Offerhaus"
   given-names: "Hidde"
 title: "CRISPRzip"
-version: 1.0.0
-date-released: 2025-02-04
+type: software
+version: 1.2.2
+date-released: 2025-12-04
 license: MIT
 url: "https://github.com/hiddeoff/crisprzip-model"
+repository-code: https://github.com/hiddeoff/crisprzip/tree/v1.2.2
+doi: 10.5281/zenodo.17818249
