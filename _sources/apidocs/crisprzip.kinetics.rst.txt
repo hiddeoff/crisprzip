@@ -1,0 +1,7 @@
+crisprzip.kinetics module
+=========================
+
+.. automodule:: crisprzip.kinetics
+   :members:
+   :show-inheritance:
+   :undoc-members:

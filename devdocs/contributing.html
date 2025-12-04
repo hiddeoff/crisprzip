@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Code of Conduct" href="code_of_conduct.html" />
+    <link rel="prev" title="Code structure" href="../userdocs/code_structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/about.html">About CRISPRzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-contribute">How to Contribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reporting-issues">1. Reporting Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#making-code-changes">2. Making Code Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setup">2.1 Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">2.2 Making code changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submit-a-draft-pull-request">2.3 Submit a draft pull request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#code-of-conduct">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">Questions?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.kinetics.html">crisprzip.kinetics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/devdocs/contributing.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h1>
+<p>Thanks for considering to contribute to CRISPRzip! We welcome contributions
+of all kinds—whether it’s fixing a bug, suggesting an enhancement, or
+improving the documentation. Below are some guidelines to help you get started.</p>
+<section id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Link to this heading"></a></h2>
+<section id="reporting-issues">
+<h3>1. Reporting Issues<a class="headerlink" href="#reporting-issues" title="Link to this heading"></a></h3>
+<p>If you encounter a bug or have a feature request, please:</p>
+<ul class="simple">
+<li><p>Check the issue tracker to see if it has already been reported.</p></li>
+<li><p>If not, open a new issue and include:</p>
+<ul>
+<li><p>A clear description of the problem or feature.</p></li>
+<li><p>Steps to reproduce the issue, if applicable.</p></li>
+<li><p>Relevant details like version numbers or environment.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="making-code-changes">
+<h3>2. Making Code Changes<a class="headerlink" href="#making-code-changes" title="Link to this heading"></a></h3>
+<section id="setup">
+<h4>2.1 Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h4>
+<p>Fork the repository and clone your fork locally:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/username/crisprzip.git
+</pre></div>
+</div>
+<p>Create a new branch for your changes:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+</pre></div>
+</div>
+<p>Install dependencies (if applicable):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h4>2.2 Making code changes<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Follow PEP 8 for Python code style.</p></li>
+<li><p>Write clear and concise commit messages.</p></li>
+<li><p>Add or update tests for any new features or bug fixes.</p></li>
+</ul>
+</section>
+<section id="submit-a-draft-pull-request">
+<h4>2.3 Submit a draft pull request<a class="headerlink" href="#submit-a-draft-pull-request" title="Link to this heading"></a></h4>
+<p>Push your changes to your fork:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature-name
+</pre></div>
+</div>
+<p>Open a pull request to the main branch on the original repository.
+Ensure your pull request includes:</p>
+<ul class="simple">
+<li><p>A detailed description of the changes.</p></li>
+<li><p>Reference to related issues (e.g., Closes #123).</p></li>
+</ul>
+<p>Your pull request will be reviewed by a maintainer.
+Please be responsive to feedback and make necessary updates.
+Once approved, your contribution will be merged.</p>
+</section>
+</section>
+</section>
+<section id="code-of-conduct">
+<h2>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Link to this heading"></a></h2>
+<p>Please adhere to our <a class="reference internal" href="#./CODE_OF_CONDUCT.md"><span class="xref myst">Code of Conduct</span></a> in all your
+interactions within the project.</p>
+</section>
+<section id="questions">
+<h2>Questions?<a class="headerlink" href="#questions" title="Link to this heading"></a></h2>
+<p>Always feel free to reach out by opening an issue or contacting
+<a class="reference external" href="mailto:hsofferhaus&#37;&#52;&#48;gmail&#46;com">hsofferhaus<span>&#64;</span>gmail<span>&#46;</span>com</a>. We appreciate your contributions! 🎉</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../userdocs/code_structure.html" class="btn btn-neutral float-left" title="Code structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="code_of_conduct.html" class="btn btn-neutral float-right" title="Code of Conduct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

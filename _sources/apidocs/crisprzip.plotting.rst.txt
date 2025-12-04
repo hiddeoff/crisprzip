@@ -1,0 +1,7 @@
+crisprzip.plotting module
+=========================
+
+.. automodule:: crisprzip.plotting
+   :members:
+   :show-inheritance:
+   :undoc-members:

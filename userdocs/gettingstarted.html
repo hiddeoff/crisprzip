@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="About CRISPRzip" href="about.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About CRISPRzip</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-installation">User installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developer-installation">Developer installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verifying-installation">Verifying installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.kinetics.html">crisprzip.kinetics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting started</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userdocs/gettingstarted.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>CRISPRzip is available on <a class="reference external" href="https://pypi.org/">PyPi</a> and can be installed
+with <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>.</p>
+<section id="user-installation">
+<h3>User installation<a class="headerlink" href="#user-installation" title="Link to this heading"></a></h3>
+<p>Although CRISPRzip can be directly installed from pip, creating a virtual
+environment makes it easier to manage dependencies. Below you can see some
+intructions on how to generate a virtual environment with
+<a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a> assuming you already
+have python installed in a bash-like terminal.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>crisprzip-venv
+<span class="nb">source</span><span class="w"> </span>crisprzip-venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>crisprzip
+</pre></div>
+</div>
+</section>
+<section id="developer-installation">
+<h3>Developer installation<a class="headerlink" href="#developer-installation" title="Link to this heading"></a></h3>
+<p>To be able to make changes and contributions to CRISPRzip, you will need to
+get your own copy of the source code and install software dependencies on
+your own. Assuming you have a python and git installed in a bash-like
+terminal, the installation process can be done with the following
+instructions.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hiddeoff/crisprzip.git
+<span class="nb">cd</span><span class="w"> </span>crisprzip
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>crisprzip-venv
+<span class="nb">source</span><span class="w"> </span>crisprzip-venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Please use our
+<a class="reference external" href="https://github.com/hiddeoff/crisprzip/blob/main/CONTRIBUTING.md">contributing guidelines</a>
+if you would like us to consider your developments in a future CRISPRzip
+release</p>
+</section>
+<section id="verifying-installation">
+<h3>Verifying installation<a class="headerlink" href="#verifying-installation" title="Link to this heading"></a></h3>
+<p>CRISPRzip development includes a cross-platform compatibility and test
+<a class="reference internal" href="#.github/workflows/compatibility-test.yml"><span class="xref myst">workflow</span></a>. If you would like to
+verify your local installation, please follow the Developer Installation
+instructions, then run the following test.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>crisprzip-venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[tests]&#39;</span><span class="w">  </span><span class="c1"># installs pytest and pandas</span>
+pytest<span class="w"> </span>tests/cleavage_binding_prediction/test_cleavage_binding_prediction.py<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>You can also follow the user installation and execute the code in the
+Usage section below.</p>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>CRISPRzip makes predictions about cleavage and binding activity on on- and
+off-targets. First, you define the protospacer and target sequence, and then,
+you can predict the fraction cleaved or bound.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. load parameter set</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crisprzip.kinetics</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_landscape</span>
+<span class="n">searcher</span> <span class="o">=</span> <span class="n">load_landscape</span><span class="p">(</span><span class="s2">&quot;sequence_params&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. define Cas9, gRNA and DNA target</span>
+<span class="n">searchertargetcomplex</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">probe_sequence</span><span class="p">(</span>
+    <span class="n">protospacer</span> <span class="o">=</span> <span class="s2">&quot;AGACGCATAAAGATGAGACGCTGG&quot;</span><span class="p">,</span>
+    <span class="n">target_seq</span>  <span class="o">=</span> <span class="s2">&quot;AGACCCATTAAGATGAGACGCGGG&quot;</span><span class="p">,</span>  <span class="c1"># A13T G17C</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. predict activity</span>
+<span class="n">f_clv</span> <span class="o">=</span> <span class="n">searchertargetcomplex</span><span class="o">.</span><span class="n">get_cleaved_fraction</span><span class="p">(</span>
+    <span class="n">time</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>  <span class="c1"># 10 minutes</span>
+    <span class="n">on_rate</span><span class="o">=</span><span class="mf">1E-1</span>
+<span class="p">)</span>
+<span class="n">f_bnd</span> <span class="o">=</span> <span class="n">searchertargetcomplex</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span>
+    <span class="n">time</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>  <span class="c1"># 10 minutes</span>
+    <span class="n">on_rate</span><span class="o">=</span><span class="mf">1E-1</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. format output</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;After 10 minutes, the target (A13T G17C) is ...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- cleaved for </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f_clv</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% by Cas9&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    or  &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- bound for </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f_bnd</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% by dCas9&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">After</span> <span class="mi">10</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">the</span> <span class="n">target</span> <span class="p">(</span><span class="n">A13T</span> <span class="n">G17C</span><span class="p">)</span> <span class="ow">is</span> <span class="o">...</span>
+<span class="o">-</span> <span class="n">cleaved</span> <span class="k">for</span> <span class="mf">10.5</span><span class="o">%</span> <span class="n">by</span> <span class="n">Cas9</span>
+    <span class="ow">or</span>  
+<span class="o">-</span> <span class="n">bound</span> <span class="k">for</span> <span class="mf">94.2</span><span class="o">%</span> <span class="n">by</span> <span class="n">dCas9</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="tutorial.html"><span class="std std-doc">tutorial</span></a> for more examples how to explore
+sequence, time and concentration dependency.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about.html" class="btn btn-neutral float-left" title="About CRISPRzip" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

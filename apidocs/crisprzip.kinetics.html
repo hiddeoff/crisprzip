@@ -1,0 +1,627 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crisprzip.kinetics module &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="crisprzip.matrix_expon module" href="crisprzip.matrix_expon.html" />
+    <link rel="prev" title="crisprzip.coarsegrain module" href="crisprzip.coarsegrain.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/about.html">About CRISPRzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">crisprzip.kinetics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher.bind_guide_rna"><code class="docutils literal notranslate"><span class="pre">BareSearcher.bind_guide_rna()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher.from_searcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher.from_searcher()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher.probe_sequence"><code class="docutils literal notranslate"><span class="pre">BareSearcher.probe_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher.probe_target"><code class="docutils literal notranslate"><span class="pre">BareSearcher.probe_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher.to_searcher"><code class="docutils literal notranslate"><span class="pre">BareSearcher.to_searcher()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher.probe_sequence"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.probe_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher.set_on_target"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.set_on_target()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher.to_bare_searcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.to_bare_searcher()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher.to_searcher"><code class="docutils literal notranslate"><span class="pre">GuidedSearcher.to_searcher()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.Searcher"><code class="docutils literal notranslate"><span class="pre">Searcher</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.guide_length"><code class="docutils literal notranslate"><span class="pre">Searcher.guide_length</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.on_target_landscape"><code class="docutils literal notranslate"><span class="pre">Searcher.on_target_landscape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.mismatch_penalties"><code class="docutils literal notranslate"><span class="pre">Searcher.mismatch_penalties</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.internal_rates"><code class="docutils literal notranslate"><span class="pre">Searcher.internal_rates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.pam_detection"><code class="docutils literal notranslate"><span class="pre">Searcher.pam_detection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.calculate_solution_energy"><code class="docutils literal notranslate"><span class="pre">Searcher.calculate_solution_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.get_forward_rate_array"><code class="docutils literal notranslate"><span class="pre">Searcher.get_forward_rate_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.Searcher.probe_target"><code class="docutils literal notranslate"><span class="pre">Searcher.probe_target()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.SearcherSequenceComplex"><code class="docutils literal notranslate"><span class="pre">SearcherSequenceComplex</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.target_mismatches"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.target_mismatches</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.off_target_landscape"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.off_target_landscape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.get_bound_fraction"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_bound_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.get_cleaved_fraction"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_cleaved_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.get_rate_matrix"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.get_rate_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex.solve_master_equation"><code class="docutils literal notranslate"><span class="pre">SearcherTargetComplex.solve_master_equation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.load_k_bind"><code class="docutils literal notranslate"><span class="pre">load_k_bind()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.kinetics.load_landscape"><code class="docutils literal notranslate"><span class="pre">load_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">crisprzip.kinetics module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidocs/crisprzip.kinetics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-crisprzip.kinetics">
+<span id="crisprzip-kinetics-module"></span><h1>crisprzip.kinetics module<a class="headerlink" href="#module-crisprzip.kinetics" title="Link to this heading"></a></h1>
+<p>Simulate the kinetics of R-loop formation by a CRISPR(-like)
+endonuclease.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">BareSearcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Buffer" title="(in Python v3.14)"><span class="pre">Buffer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Buffer" title="(in Python v3.14)"><span class="pre">Buffer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pam_detection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#crisprzip.kinetics.Searcher" title="crisprzip.kinetics.Searcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">Searcher</span></code></a></p>
+<p><cite>Searcher</cite> with only protein contribution to the energy landscapes.</p>
+<p>The <cite>BareSearcher</cite> has no built-in energy contributions from
+nucleic acid; its energy parameters are only due to the nonspecific
+interactions between the protein and the target DNA. The difference
+between the <cite>Searcher</cite> and <cite>BareSearcher</cite> values of the
+<code class="docutils literal notranslate"><span class="pre">on_target_landscape</span></code> and <code class="docutils literal notranslate"><span class="pre">mismatch_penalties</span></code> attributes are
+due to nucleic acid interactions as determined in the nucleic_acid module.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher.bind_guide_rna">
+<span class="sig-name descname"><span class="pre">bind_guide_rna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher" title="crisprzip.kinetics.GuidedSearcher"><span class="pre">GuidedSearcher</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher.bind_guide_rna" title="Link to this definition"></a></dt>
+<dd><p>Create a GuidedSearcher object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher.from_searcher">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_searcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">searcher</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher" title="crisprzip.kinetics.BareSearcher"><span class="pre">BareSearcher</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher.from_searcher" title="Link to this definition"></a></dt>
+<dd><p>Generate object from default <cite>Searcher</cite></p>
+<p>Subtracts the nearest-neighbour hybridization energies from
+the definition of a ‘normal’ <cite>Searcher</cite>. Averages over the
+penalties due to single point mutations to find the difference
+with the original <code class="docutils literal notranslate"><span class="pre">mm_penalties</span></code> variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>searcher</strong> (<cite>Searcher</cite>) – Object to be transformed.</p></li>
+<li><p><strong>protospacer</strong> (<cite>str</cite>) – <p>Full sequence of the protospacer/on-target. Can be provided in 3 formats:</p>
+<ul>
+<li><p>20 nts: 5’-target-3’. All nucleotides should be specified.</p></li>
+<li><dl class="simple">
+<dt>23 nts: 5’-target-PAM-3’. The PAM should be specified or</dt><dd><p>provided as ‘NGG’.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>24 nts: 5’-upstream_nt-target-PAM-3’. The upstream_nt can be</dt><dd><p>specified or provided as ‘N’.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p></li>
+<li><p><strong>weight</strong> (<cite>float</cite> or <cite>tuple</cite> [<cite>float</cite>], optional) – Optional weighing of the DNA opening energy and RNA duplex energy.
+If None (default), no weighing is applied. If <cite>float</cite>, both DNA and
+RNA energies are multiplied by the weight parameter. If <cite>tuple</cite>
+of two <a href="#id1"><span class="problematic" id="id2">`</span></a>float`s, the first value is used as a multiplier for the
+DNA opening energy, and the second is used as a multiplier for the
+RNA-DNA hybridization energy.</p></li>
+<li><p><strong>*args</strong> – Additional positional arguments, passed on to the constructor.</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments, passed on to the constructor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>bare_searcher</strong> – New instance of the <cite>BareSearcher</cite> class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>BareSearcher</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher.probe_sequence">
+<span class="sig-name descname"><span class="pre">probe_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.SearcherSequenceComplex" title="crisprzip.kinetics.SearcherSequenceComplex"><span class="pre">SearcherSequenceComplex</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher.probe_sequence" title="Link to this definition"></a></dt>
+<dd><p>Instantiate a <cite>SearcherSequenceComplex</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher.probe_target">
+<span class="sig-name descname"><span class="pre">probe_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_mismatches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern" title="crisprzip.nucleic_acid.MismatchPattern"><span class="pre">MismatchPattern</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex" title="crisprzip.kinetics.SearcherTargetComplex"><span class="pre">SearcherTargetComplex</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher.probe_target" title="Link to this definition"></a></dt>
+<dd><p>Prohibited, see <cite>BareSearcher.probe_sequence</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.BareSearcher.to_searcher">
+<span class="sig-name descname"><span class="pre">to_searcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.Searcher" title="crisprzip.kinetics.Searcher"><span class="pre">Searcher</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.BareSearcher.to_searcher" title="Link to this definition"></a></dt>
+<dd><p>Turn <cite>BareSearcher</cite> into default <cite>Searcher</cite>.</p>
+<p>Add the nearest-neighbour hybridization energies to
+BareSearcher energy parameters to retrieve a ‘normal’ Searcher
+object with effective landscape and (average) mismatch penalties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protospacer</strong> (<cite>str</cite>) – <p>Full sequence of the protospacer/on-target. Can be provided in 3 formats:</p>
+<ul>
+<li><p>20 nts: 5’-target-3’. All nucleotides should be specified.</p></li>
+<li><dl class="simple">
+<dt>23 nts: 5’-target-PAM-3’. The PAM should be specified or</dt><dd><p>provided as ‘NGG’.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>24 nts: 5’-upstream_nt-target-PAM-3’. The upstream_nt can be</dt><dd><p>specified or provided as ‘N’.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p></li>
+<li><p><strong>weight</strong> (<cite>float</cite> or <cite>tuple</cite> [<cite>float</cite>], optional) – Optional weighing of the DNA opening energy and RNA duplex energy.
+If None (default), the instance attribute <cite>weight</cite> is used. (If
+that is None too, no weighin is applied.) If <cite>float</cite>, both DNA and
+RNA energies are multiplied by the weight parameter. If <cite>tuple</cite>
+of two <a href="#id3"><span class="problematic" id="id4">`</span></a>float`s, the first value is used as a multiplier for the
+DNA opening energy, and the second is used as a multiplier for the
+RNA-DNA hybridization energy.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>searcher</strong> – New instance of the <cite>Searcher</cite> class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>Searcher</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.kinetics.GuidedSearcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">GuidedSearcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.GuidedSearcher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#crisprzip.kinetics.BareSearcher" title="crisprzip.kinetics.BareSearcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">BareSearcher</span></code></a></p>
+<p><cite>BareSearcher</cite> with predefined protospacer/gRNA.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.GuidedSearcher.probe_sequence">
+<span class="sig-name descname"><span class="pre">probe_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.SearcherSequenceComplex" title="crisprzip.kinetics.SearcherSequenceComplex"><span class="pre">SearcherSequenceComplex</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.GuidedSearcher.probe_sequence" title="Link to this definition"></a></dt>
+<dd><p>Instantiate a <cite>SearcherSequenceComplex</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.GuidedSearcher.set_on_target">
+<span class="sig-name descname"><span class="pre">set_on_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.GuidedSearcher.set_on_target" title="Link to this definition"></a></dt>
+<dd><p>Set the on-target sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.GuidedSearcher.to_bare_searcher">
+<span class="sig-name descname"><span class="pre">to_bare_searcher</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.BareSearcher" title="crisprzip.kinetics.BareSearcher"><span class="pre">BareSearcher</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.GuidedSearcher.to_bare_searcher" title="Link to this definition"></a></dt>
+<dd><p>Turn <cite>GuidedSearcher</cite> into default <cite>BareSearcher</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.GuidedSearcher.to_searcher">
+<span class="sig-name descname"><span class="pre">to_searcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.Searcher" title="crisprzip.kinetics.Searcher"><span class="pre">Searcher</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.GuidedSearcher.to_searcher" title="Link to this definition"></a></dt>
+<dd><p>Turn <cite>GuidedSearcher</cite> into default <cite>Searcher</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">Searcher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Buffer" title="(in Python v3.14)"><span class="pre">Buffer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Buffer" title="(in Python v3.14)"><span class="pre">Buffer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v2.3)"><span class="pre">dtype</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.14)"><span class="pre">complex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pam_detection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.Searcher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A (CRISPR-associated) RNA-guided endonuclease.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.guide_length">
+<span class="sig-name descname"><span class="pre">guide_length</span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.guide_length" title="Link to this definition"></a></dt>
+<dd><p>Length of the nucleic acid guide N (in bp)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>int</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.on_target_landscape">
+<span class="sig-name descname"><span class="pre">on_target_landscape</span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.on_target_landscape" title="Link to this definition"></a></dt>
+<dd><p>Contains the hybridization energies of the intermediate R-loop
+states on an on-target, relative to the PAM energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite>, (N,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.mismatch_penalties">
+<span class="sig-name descname"><span class="pre">mismatch_penalties</span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.mismatch_penalties" title="Link to this definition"></a></dt>
+<dd><p>Contains the energetic penalties associated with a mismatch
+at a particular R-loop position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite>, (N,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.internal_rates">
+<span class="sig-name descname"><span class="pre">internal_rates</span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.internal_rates" title="Link to this definition"></a></dt>
+<dd><p>Specifies the internal (=context-independent) rates in the
+model:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;k_off&quot;</span></code></dt><dd><p>PAM-unbinding rate in s⁻¹ (<cite>float</cite>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;k_f&quot;</span></code></dt><dd><p>Forward rate in s⁻¹ (<cite>float</cite>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;k_clv&quot;</span></code></dt><dd><p>Cleavage rate in s⁻¹ (<cite>float</cite>).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite> [<cite>str</cite>, <cite>float</cite>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.pam_detection">
+<span class="sig-name descname"><span class="pre">pam_detection</span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.pam_detection" title="Link to this definition"></a></dt>
+<dd><p>If true, the landscape includes a PAM recognition state. <cite>True</cite>
+by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>bool</cite>, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.calculate_solution_energy">
+<span class="sig-name descname"><span class="pre">calculate_solution_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.Searcher.calculate_solution_energy" title="Link to this definition"></a></dt>
+<dd><p>Given an on-rate, returns the effective free energy of the
+solution state (under the assumption of detailed balance)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.get_forward_rate_array">
+<span class="sig-name descname"><span class="pre">get_forward_rate_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.get_forward_rate_array" title="Link to this definition"></a></dt>
+<dd><p>Turn the forward rate dictionary into proper array.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.Searcher.probe_target">
+<span class="sig-name descname"><span class="pre">probe_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_mismatches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern" title="crisprzip.nucleic_acid.MismatchPattern"><span class="pre">MismatchPattern</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex" title="crisprzip.kinetics.SearcherTargetComplex"><span class="pre">SearcherTargetComplex</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.Searcher.probe_target" title="Link to this definition"></a></dt>
+<dd><p>Form a SearcherTargetComplex by binding a target with
+mismatch pattern <code class="docutils literal notranslate"><span class="pre">target_mismatches</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherSequenceComplex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">SearcherSequenceComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">protospacer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.SearcherSequenceComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#crisprzip.kinetics.GuidedSearcher" title="crisprzip.kinetics.GuidedSearcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">GuidedSearcher</span></code></a>, <a class="reference internal" href="#crisprzip.kinetics.SearcherTargetComplex" title="crisprzip.kinetics.SearcherTargetComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearcherTargetComplex</span></code></a></p>
+<p>An RNA-guided endonuclease bound to a particular (off-)target sequence.</p>
+<p>The <cite>SearcherSequenceComplex</cite> is like a <cite>SearcherTargetComplex</cite>,
+but with sequence-specific nucleic acid contributions. The most
+important difference is how it calculates its <code class="docutils literal notranslate"><span class="pre">off_target_landscape</span></code>,
+the sum of all energetic contributions: protein landscape, protein
+penalties, DNA opening energy and RNA-DNA hybridization energy.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">SearcherTargetComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_mismatches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern" title="crisprzip.nucleic_acid.MismatchPattern"><span class="pre">MismatchPattern</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#crisprzip.kinetics.Searcher" title="crisprzip.kinetics.Searcher"><code class="xref py py-class docutils literal notranslate"><span class="pre">Searcher</span></code></a></p>
+<p>An RNA-guided endonuclease bound to a particular (off-)target.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.target_mismatches">
+<span class="sig-name descname"><span class="pre">target_mismatches</span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.target_mismatches" title="Link to this definition"></a></dt>
+<dd><p>Positions of mismatches in the guide-target hybrid, with entries
+0 (matches) and 1 (mismatches).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite>, (N,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.off_target_landscape">
+<span class="sig-name descname"><span class="pre">off_target_landscape</span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.off_target_landscape" title="Link to this definition"></a></dt>
+<dd><p>Hybridization energies of the intermediate R-loop states on the
+current off-target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite>, (N,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.get_bound_fraction">
+<span class="sig-name descname"><span class="pre">get_bound_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pam_inclusion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.get_bound_fraction" title="Link to this definition"></a></dt>
+<dd><p>Get the fraction of bound targets after a specified time.</p>
+<p>This calculation assuming that searcher is catalytically
+dead/inactive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<cite>float</cite> or <cite>numpy.ndarray</cite>, (M,)) – Times at which the master equation is evaluated.</p></li>
+<li><p><strong>on_rate</strong> (<cite>float</cite> or <cite>numpy.ndarray</cite> (M,)) – Rate (Hz) with which the searcher binds the target from solution.</p></li>
+<li><p><strong>pam_inclusion</strong> (<cite>float</cite>, optional) – Contribution of the PAM state to the bound fraction. When 1.0
+(default), all PAM-bound searchers contribute to the bound
+fraction, when 0.0, nothing does.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>cleaved_fraction</strong> – Fraction of targets that is expected to be bound after <code class="docutils literal notranslate"><span class="pre">time</span></code>
+and with binding rates <code class="docutils literal notranslate"><span class="pre">on_rate</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>float</cite> or <cite>numpy.ndarray</cite> (M,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.get_cleaved_fraction">
+<span class="sig-name descname"><span class="pre">get_cleaved_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.get_cleaved_fraction" title="Link to this definition"></a></dt>
+<dd><p>Get the fraction of cleaved targets after a specified time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<cite>float</cite> or <cite>numpy.ndarray</cite>, (M,)) – Times at which the cleaved fraction is calculated</p></li>
+<li><p><strong>on_rate</strong> (<cite>float</cite>) – Rate (Hz) with which the searcher binds the target from solution.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>cleaved_fraction</strong> – Fraction of targets that is expected to be cleaved at <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>float</cite> or <cite>numpy.ndarray</cite> (M,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.get_rate_matrix">
+<span class="sig-name descname"><span class="pre">get_rate_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.get_rate_matrix" title="Link to this definition"></a></dt>
+<dd><p>Set up the rate matrix describing the master equation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.kinetics.SearcherTargetComplex.solve_master_equation">
+<span class="sig-name descname"><span class="pre">solve_master_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rebinding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fast'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#crisprzip.kinetics.SearcherTargetComplex.solve_master_equation" title="Link to this definition"></a></dt>
+<dd><p>Calculate the occupancy of the landscape over time.</p>
+<p>Calculates how the occupancy of the landscape states evolves by
+evaluating the master equation. Absorbing states (solution and
+cleaved state) are explicitly incorporated. Can vary either
+time or on_rate but not both.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_condition</strong> (<cite>numpy.ndarray</cite>, (N+3,)) – Vector showing the initial occupancy on the hybridization
+landscape. Should sum to 1.</p></li>
+<li><p><strong>time</strong> (<cite>float</cite> or <cite>numpy.ndarray</cite>, (M,)) – Times at which the master equation is evaluated.</p></li>
+<li><p><strong>on_rate</strong> (<cite>float</cite> or <cite>numpy.ndarray</cite> (M,)) – Rate (Hz) with which the searcher binds the target from solution.</p></li>
+<li><p><strong>dead</strong> (<cite>bool</cite>, optional) – If <cite>True</cite>, cleavage rate is set to zero to simulate the
+catalytically inactive dCas9 variant.</p></li>
+<li><p><strong>rebinding</strong> (<cite>bool</cite>, optional) – If <cite>True</cite>, <code class="docutils literal notranslate"><span class="pre">on-rate</span></code> is left intact, if <cite>False</cite>, <code class="docutils literal notranslate"><span class="pre">on-rate</span></code>
+is set to zero and solution state becomes absorbing.</p></li>
+<li><p><strong>mode</strong> (<em>{'fast'</em><em>, </em><em>'iterative'}</em><em>, </em><em>optional</em>) – If ‘fast’ (default), uses Numba implementation to do fast
+matrix exponentiation. If ‘iterative’, uses the
+(~20x slower) iterative procedure. Whenever the fast
+implementation fails, falls back to the iterative.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>landscape_occupancy</strong> – Occupancy of the landscape states for specified <code class="docutils literal notranslate"><span class="pre">time</span></code> and
+<code class="docutils literal notranslate"><span class="pre">on_rate</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>numpy.ndarray</cite>, (N+3,) or (N+3, M)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crisprzip.kinetics.load_k_bind">
+<span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">load_k_bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'in_vitro'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.load_k_bind" title="Link to this definition"></a></dt>
+<dd><p>Load a parameter set describing the landscape energies for a Searcher</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameter_set</strong> (<cite>str</cite>) – Specifies which parameter set to load. This can be one of
+the default parameter sets, distributed along with crisprzip:
+- <cite>sequence_params</cite>: for sequence-specific kinetics
+- <cite>average_params</cite>: for average kinetics
+- <cite>average_params_legacy</cite>: for average kinetics according to Eslami-Mossalam et al. (2021)
+Alternatively, one can provide a path to a JSON-file that describes
+the parameter set. See the Notes for the requirements for the structure
+of such a file.</p></li>
+<li><p><strong>context</strong> (<cite>str</cite>, optional) – Specifies which binding rate to load. Default is <code class="docutils literal notranslate"><span class="pre">&quot;in_vitro&quot;</span></code>,
+corresponding to the specific buffer conditions of the train
+data. Availability of contexts depends on the parameter set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>k_bind</strong> – The rate at which a PAM site is bound by Cas9.gRNA (in units nM⁻¹ s⁻¹).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>float</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>JSON files containing parameter sets for binding rates should contain
+at least the following keys:
+- <cite>param_values</cite>,</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><cite>binding_rates</cite></dt><dd><ul>
+<li><p><cite>in_vitro</cite></p></li>
+<li><p><cite>context2</cite>, optional</p></li>
+<li><p><cite>context3</cite>, optional</p></li>
+<li><p>etcetera.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crisprzip.kinetics.load_landscape">
+<span class="sig-prename descclassname"><span class="pre">crisprzip.kinetics.</span></span><span class="sig-name descname"><span class="pre">load_landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.kinetics.load_landscape" title="Link to this definition"></a></dt>
+<dd><p>Load a parameter set describing the landscape energies for a Searcher</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parameter_set</strong> (<cite>str</cite>) – Specifies which parameter set to load. This can be one of
+the default parameter sets, distributed along with crisprzip:
+- <cite>sequence_params</cite>: for sequence-specific kinetics
+- <cite>average_params</cite>: for average kinetics
+- <cite>average_params_legacy</cite>: for average kinetics according to Eslami-Mossalam et al. (2021)
+Alternatively, one can provide a path to a JSON-file that describes
+the parameter set. See the Notes for the requirements for the structure
+of such a file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>searcher_obj</strong> – An instance of the <cite>Searcher</cite> or one of its subclasses.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>Searcher</cite> or <cite>BareSearcher</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>JSON files containing parameter sets for Searcher objects should contain
+at least the following keys:
+- <cite>searcher_class</cite>, corresponding to a class in <cite>crisprzip.kinetics</cite>;
+- <cite>param_values</cite>, with (at least) the arguments for object instantiation,</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>on_target_landscape</cite></p></li>
+<li><p><cite>mismatch_penalties</cite></p></li>
+<li><p><cite>internal_rates</cite>.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="crisprzip.coarsegrain.html" class="btn btn-neutral float-left" title="crisprzip.coarsegrain module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="crisprzip.matrix_expon.html" class="btn btn-neutral float-right" title="crisprzip.matrix_expon module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crisprzip.coarsegrain module &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="crisprzip.kinetics module" href="crisprzip.kinetics.html" />
+    <link rel="prev" title="Changelog" href="../devdocs/changelog.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/about.html">About CRISPRzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userdocs/code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">crisprzip.coarsegrain module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.coarsegrain.CoarseGrainedComplex"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedComplex</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crisprzip.coarsegrain.CoarseGrainedComplex.get_coarse_grained_rates"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedComplex.get_coarse_grained_rates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.coarsegrain.CoarseGrainedSequenceComplex"><code class="docutils literal notranslate"><span class="pre">CoarseGrainedSequenceComplex</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crisprzip.coarsegrain.coarse_grain_landscape"><code class="docutils literal notranslate"><span class="pre">coarse_grain_landscape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.kinetics.html">crisprzip.kinetics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">crisprzip.coarsegrain module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidocs/crisprzip.coarsegrain.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-crisprzip.coarsegrain">
+<span id="crisprzip-coarsegrain-module"></span><h1>crisprzip.coarsegrain module<a class="headerlink" href="#module-crisprzip.coarsegrain" title="Link to this heading"></a></h1>
+<p>Simplify a full landscape to a coarse-grained, 3-state model.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.coarsegrain.CoarseGrainedComplex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.coarsegrain.</span></span><span class="sig-name descname"><span class="pre">CoarseGrainedComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_target_landscape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mismatch_penalties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_mismatches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="crisprzip.nucleic_acid.html#crisprzip.nucleic_acid.MismatchPattern" title="crisprzip.nucleic_acid.MismatchPattern"><span class="pre">MismatchPattern</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.coarsegrain.CoarseGrainedComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex" title="crisprzip.kinetics.SearcherTargetComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearcherTargetComplex</span></code></a></p>
+<p>Extends the SearchTargetComplex class with coarse-graining
+functionality.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="crisprzip.coarsegrain.CoarseGrainedComplex.get_coarse_grained_rates">
+<span class="sig-name descname"><span class="pre">get_coarse_grained_rates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intermediate_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(7,</span> <span class="pre">14)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#crisprzip.coarsegrain.CoarseGrainedComplex.get_coarse_grained_rates" title="Link to this definition"></a></dt>
+<dd><p>Calculate the coarse-grained rates over two barrier regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>intermediate_range</strong> (<cite>tuple</cite> [<cite>int</cite>], optional) – The states a and b between which intermediate state is looked
+for. The lowest-energy state in the range [a, b) is the
+intermediate state. Default is [7, 14).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>coarse_grained_rates</strong> (<cite>dict</cite> [<cite>str</cite>, <cite>float</cite>]) – Dictionary containing the rates k_OI, k_IC, k_IO, k_CI between
+the states Open (=PAM), Intermediate, Closed (=full R-loop).</p></li>
+<li><p><strong>intermediate_id</strong> (<cite>int</cite>) – Location of the intermediate state.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="crisprzip.coarsegrain.CoarseGrainedSequenceComplex">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crisprzip.coarsegrain.</span></span><span class="sig-name descname"><span class="pre">CoarseGrainedSequenceComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crisprzip.coarsegrain.CoarseGrainedSequenceComplex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherSequenceComplex" title="crisprzip.kinetics.SearcherSequenceComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearcherSequenceComplex</span></code></a>, <a class="reference internal" href="#crisprzip.coarsegrain.CoarseGrainedComplex" title="crisprzip.coarsegrain.CoarseGrainedComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">CoarseGrainedComplex</span></code></a></p>
+<p>Like CoarseGrainedComplex but works for SearcherSequenceComplexes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crisprzip.coarsegrain.coarse_grain_landscape">
+<span class="sig-prename descclassname"><span class="pre">crisprzip.coarsegrain.</span></span><span class="sig-name descname"><span class="pre">coarse_grain_landscape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">searcher_target_complex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherTargetComplex" title="crisprzip.kinetics.SearcherTargetComplex"><span class="pre">SearcherTargetComplex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="crisprzip.kinetics.html#crisprzip.kinetics.SearcherSequenceComplex" title="crisprzip.kinetics.SearcherSequenceComplex"><span class="pre">SearcherSequenceComplex</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">intermediate_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(7,</span> <span class="pre">14)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#crisprzip.coarsegrain.coarse_grain_landscape" title="Link to this definition"></a></dt>
+<dd><p>Calculate the coarse-grained rates over two barrier regions.</p>
+<p>A typical off-target landscape for CRISPR-Cas9 has 2 barriers,
+corresponding to the formation of the seed and the PAM-distal
+R-loop. By coarse-graining the full landscape, one can obtain
+the effective kinetics between the semi-stable states (PAM,
+intermediate, full R-loop) that can be experimentally discriminated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>searcher_target_complex</strong> (<cite>crisprzip.kinetics.SearcherTargetComplex</cite> or)</p></li>
+<li><p><strong>crisprzip.kinetics.SearcherSequenceComplex</strong> – The off-target hybridization landscape from this instance is
+used to calculate the coarse-grained rates</p></li>
+<li><p><strong>intermediate_range</strong> (<cite>tuple</cite> [<cite>int</cite>], optional) – The states a and b between which intermediate state is looked
+for. The lowest-energy state in the range [a, b) is the
+intermediate state. Default is [7, 14).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>coarse_grained_rates</strong> (<cite>dict</cite> [<cite>str</cite>, <cite>float</cite>]) – Dictionary containing the rates k_OI, k_IC, k_IO, k_CI between
+the states Open (=PAM), Intermediate, Closed (=full R-loop).</p></li>
+<li><p><strong>intermediate_id</strong> (<cite>int</cite>) – Location of the intermediate state.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Coarse-grained landscapes are obtained by first obtaining the
+intermediate state (see <code class="docutils literal notranslate"><span class="pre">intermediate_range</span></code>). Then, for the state
+pairs open-intermediate and intermediate-closed, a partial rate
+matrix is obtained. By solving the Master Equation, we obtain
+the average arrival time between the state pairs. The inverse of
+the average arrival time gives the rate. The coarse-graining
+approach is explained in detail in <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>12345<span class="fn-bracket">]</span></a>.</p>
+<p>Note that state labelling is different in some sources, where open and
+closed refer to the state of the R-loop, not the protein structure.
+Also, the open state “O” can be labelled as PAM state “P”.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">12345</a><span class="fn-bracket">]</span></span>
+<p>Eslami-Mossallam B et al. (2022) “A kinetic model predicts SpCas9
+activity, improves off-target classification, and reveals the
+physical basis of targeting fidelity.” Nature Communications.
+[10.1038/s41467-022-28994-2](<a class="reference external" href="https://doi.org/10.1038/s41467-022-28994-2">https://doi.org/10.1038/s41467-022-28994-2</a>)</p>
+</aside>
+</aside>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../devdocs/changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="crisprzip.kinetics.html" class="btn btn-neutral float-right" title="crisprzip.kinetics module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

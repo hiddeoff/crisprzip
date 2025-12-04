@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial &mdash; CRISPRzip 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Code structure" href="code_structure.html" />
+    <link rel="prev" title="Getting started" href="gettingstarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CRISPRzip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About CRISPRzip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generate-r-loop-landscapes">1 Generate R-loop landscapes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specify-protospacer-and-targets">1.1 Specify protospacer and targets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choose-a-parameter-set">1.2 Choose a parameter set</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sequence-averaged-model">1.2.1 Sequence-averaged model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sequence-specific-model">1.2.2 Sequence-specific model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predicting-activity">2 Predicting activity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cleavage-activity">2.1 Cleavage activity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binding-activity">2.2 Binding activity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="code_structure.html">Code structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developing guidelines</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.coarsegrain.html">crisprzip.coarsegrain module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.kinetics.html">crisprzip.kinetics module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.matrix_expon.html">crisprzip.matrix_expon module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.nucleic_acid.html">crisprzip.nucleic_acid module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apidocs/crisprzip.plotting.html">crisprzip.plotting module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CRISPRzip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/userdocs/tutorial.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
+<p>This notebook gives a basic idea how the CRISPRzip model is structured and how it can be used to make predictions about Cas9 activity.</p>
+<section id="generate-r-loop-landscapes">
+<h2>1 Generate R-loop landscapes<a class="headerlink" href="#generate-r-loop-landscapes" title="Link to this heading"></a></h2>
+<section id="specify-protospacer-and-targets">
+<h3>1.1 Specify protospacer and targets<a class="headerlink" href="#specify-protospacer-and-targets" title="Link to this heading"></a></h3>
+<p>Let’s say you use CRISPR-Cas9 to target the sequence <code class="docutils literal notranslate"><span class="pre">5'-GACGCATAAAGATGAGACGCTGG-3'</span></code> and want to understand its dynamics on the on-target and on some potential off-targets. We specify them below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">guide_rna</span>   <span class="o">=</span>   <span class="s2">&quot;GACGCATAAAGATGAGACGC&quot;</span>     <span class="c1"># 5&#39;-to-3&#39;</span>
+<span class="n">protospacer</span> <span class="o">=</span>  <span class="s2">&quot;AGACGCATAAAGATGAGACGCTGG&quot;</span>  <span class="c1"># 5&#39;-to-3&#39;, with 5&#39; flanking NT (optional) and 3&#39; PAM (NGG)</span>
+
+<span class="n">targets</span>     <span class="o">=</span> <span class="p">[</span><span class="n">protospacer</span><span class="p">,</span>                 <span class="c1"># on-target</span>
+               <span class="s2">&quot;AGTCGCATAAAGATGAGACGCGGG&quot;</span><span class="p">,</span>  <span class="c1"># off-target 1: A19T           (GGG PAM)</span>
+               <span class="s2">&quot;AGACCCATTAAGATGAGACGCGGG&quot;</span><span class="p">,</span>  <span class="c1"># off-target 2: A13T G17C      (GGG PAM)</span>
+               <span class="s2">&quot;AGACGCATAACTATGAGACGCAGG&quot;</span><span class="p">,</span>  <span class="c1"># off-target 3: G10T A11C      (AGG PAM)</span>
+               <span class="s2">&quot;AGACGCATAAAGATAAGCGGCCGG&quot;</span><span class="p">]</span>  <span class="c1"># off-target 4: C03G A04C G07A (CGG PAM)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="choose-a-parameter-set">
+<h3>1.2 Choose a parameter set<a class="headerlink" href="#choose-a-parameter-set" title="Link to this heading"></a></h3>
+<section id="sequence-averaged-model">
+<h4>1.2.1 Sequence-averaged model<a class="headerlink" href="#sequence-averaged-model" title="Link to this heading"></a></h4>
+<p>In CRISPRzip, you simulate the dynamics by constructing an energy landscape of the R-loop formation process. For this, we need to choose a parameter set that contains all the energy contributions. To start, let’s use a simpler version of the model that only considers the positions of mismatches (without sequence content).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crisprzip.kinetics</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># loading a parameter set for the energy landscape model, returns a Searcher protein</span>
+<span class="n">protein</span> <span class="o">=</span> <span class="n">load_landscape</span><span class="p">(</span><span class="s2">&quot;average_params&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crisprzip.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearcherPlotter</span>
+
+<span class="c1"># visualizing the parameter set</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_on_target_landscape</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_mismatch_penalties</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_internal_rates</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">y_lims</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1E-5</span><span class="p">,</span> <span class="mf">1E7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/074918864361d2b8e22fdc9cb01bba768a9ddbad4179e5e82d4e597d7234ba34.png" src="../_images/074918864361d2b8e22fdc9cb01bba768a9ddbad4179e5e82d4e597d7234ba34.png" />
+</div>
+</div>
+<p>With the above parameter sets, we can construct the energy landscape for any target by adding the appropriate mismatch penalties to the on-target landscape. The SearcherTargetComplex object generates off-target landscapes - and can do calculations on the basis of these, which we’ll get to in <a class="reference internal" href="#predicting-activity"><span class="xref myst">section 2</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">protein_target_complexes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">target_seq</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+    <span class="n">mm_pattern</span> <span class="o">=</span> <span class="p">(</span><span class="n">GuideTargetHybrid</span>
+                  <span class="o">.</span><span class="n">from_cas9_offtarget</span><span class="p">(</span><span class="n">target_seq</span><span class="p">,</span> <span class="n">protospacer</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">get_mismatch_pattern</span><span class="p">())</span>
+    <span class="n">protein_target_complexes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">protein</span><span class="o">.</span><span class="n">probe_target</span><span class="p">(</span><span class="n">mm_pattern</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ptc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_target_complexes</span><span class="p">):</span>
+    <span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">ptc</span><span class="p">)</span><span class="o">.</span><span class="n">plot_off_target_landscape</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;cornflowerblue&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d3008a16a5891fc3432cc2e2f45be129620da7bc3820727fc7d2eb02b7ba880d.png" src="../_images/d3008a16a5891fc3432cc2e2f45be129620da7bc3820727fc7d2eb02b7ba880d.png" />
+</div>
+</div>
+<p>For clarity, the ‘mismatch patterns’ that the above landscapes are based on relate to the gRNA and target sequence as illustrated below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hybrid</span> <span class="o">=</span> <span class="n">GuideTargetHybrid</span><span class="o">.</span><span class="n">from_cas9_offtarget</span><span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">protospacer</span><span class="p">)</span>
+<span class="n">hybrid</span><span class="o">.</span><span class="n">set_rloop_state</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+    <span class="s1">&#39;R-loop visualization:&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">hybrid</span><span class="p">),</span>
+    <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;Mismatch pattern: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">get_mismatch_pattern</span><span class="p">())</span><span class="si">}</span><span class="s2">  (3&#39;-to-5&#39;)&quot;</span><span class="p">,</span>
+<span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R-loop visualization:
+
+ 5&#39;-GACGCAUAAAGAUGAGACGC-3&#39;  (RNA guide)
+    |·||||||||||||||||||
+3&#39;-TCAGCGTATTTCTACTCTGCGC-5&#39; (DNA TS)
+   |                    |
+5&#39;-AGTCGCATAAAGATGAGACGCG-3&#39; (DNA NTS)
+    20   15   10   5   1
+
+Mismatch pattern: 00000000000000000010  (3&#39;-to-5&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sequence-specific-model">
+<h4>1.2.2 Sequence-specific model<a class="headerlink" href="#sequence-specific-model" title="Link to this heading"></a></h4>
+<p>CRISPRzip can consider the sequence of the gRNA and target into account when calculating off-target landscapes. Using a sequence-specific model will give different activity predictions for off-targets that have the same mismatch pattern but a different sequence (e.g. A04T vs A04G).</p>
+<p>The off-target landscapes will not only include the energy contributions from the protein (internal stability, NA backbone interactions), but will add the expected free energy cost of the R-loop. This R-loop cost is calculated in the module <code class="docutils literal notranslate"><span class="pre">nucleic_acid.py</span></code>. To support this addition of the R-loop cost, we should switch from the ‘Searcher’ and ‘SearcherTargetComplex’ object to a ‘BareSearcher’, ‘GuidedSearcher’ and ‘SearcherSeqeunceComplex’, as they add this energy in the calculation of the off-target landscape.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crisprzip.kinetics</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># loading a parameter set for the energy landscape model, returns a BareSearcher protein</span>
+<span class="n">bare_protein</span> <span class="o">=</span> <span class="n">load_landscape</span><span class="p">(</span><span class="s2">&quot;sequence_params&quot;</span><span class="p">)</span>
+<span class="c1"># the GuidedSearcher has an attribute for the protospacer, reflecting the gRNA loading</span>
+<span class="n">guided_protein</span> <span class="o">=</span> <span class="n">bare_protein</span><span class="o">.</span><span class="n">bind_guide_rna</span><span class="p">(</span><span class="n">protospacer</span><span class="o">=</span><span class="n">protospacer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crisprzip.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearcherPlotter</span>
+
+<span class="c1"># visualizing the parameter set</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">bare_protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_on_target_landscape</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">bare_protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_mismatch_penalties</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">bare_protein</span><span class="p">)</span><span class="o">.</span><span class="n">plot_internal_rates</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">y_lims</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1E-5</span><span class="p">,</span> <span class="mf">1E7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/acdd57a938ef1207690c9027bc765ab015544ed2a73bd7b2f1c9362a3f192061.png" src="../_images/acdd57a938ef1207690c9027bc765ab015544ed2a73bd7b2f1c9362a3f192061.png" />
+</div>
+</div>
+<p>These landscapes clearly differ from those in the sequence-averaged model! The difference is that these are only the protein contributions; when the R-loop cost is added below, these landscapes will look a lot more similar to those above.</p>
+<p>Again, we construct the energy landscape for various targets. The ‘ProteinSequenceComplex’ takes the off-target <em>sequences</em> as an input, and handles the addition of the R-loop cost, and apart from that, it is identical to the (sequence-independent) ‘ProteinTargetComplex’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">protein_sequence_complexes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">target_seq</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+    <span class="n">protein_sequence_complexes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">guided_protein</span><span class="o">.</span><span class="n">probe_sequence</span><span class="p">(</span><span class="n">target_seq</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">psc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_sequence_complexes</span><span class="p">):</span>
+    <span class="n">SearcherPlotter</span><span class="p">(</span><span class="n">psc</span><span class="p">)</span><span class="o">.</span><span class="n">plot_off_target_landscape</span><span class="p">(</span><span class="n">axs</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_lims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;cornflowerblue&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/31873aad2feb07754afbd289f1298182249b072b40e63d8e248b38259709474b.png" src="../_images/31873aad2feb07754afbd289f1298182249b072b40e63d8e248b38259709474b.png" />
+</div>
+</div>
+<p>These landscapes are very similar to the landscapes generated by the sequence-averaged model, however, there are small deviations as a result of the base contents. We’ll stick by these landscapes in the tutorial from here on.</p>
+</section>
+</section>
+</section>
+<section id="predicting-activity">
+<h2>2 Predicting activity<a class="headerlink" href="#predicting-activity" title="Link to this heading"></a></h2>
+<section id="cleavage-activity">
+<h3>2.1 Cleavage activity<a class="headerlink" href="#cleavage-activity" title="Link to this heading"></a></h3>
+<p>We can use the landscapes generated above to make predictions about Cas9 activity.</p>
+<p>If we look at the cleavage process, we see that any target gets cleaved but the rate at which this happens varies greatly. Often, it makes sense fitting an exponential decay function to the population of cleavage products to obtain an effective cleavage rate. We demonstrate this below for the on-target.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># USER INPUT</span>
+
+<span class="c1"># &#39;k_on_ref&#39; is the association rate at 1 nM (s⁻¹)</span>
+<span class="n">k_on_ref</span> <span class="o">=</span> <span class="mf">1E-2</span>
+<span class="n">concentration</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axs_fit</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cleavage_rate</span><span class="p">(</span><span class="n">stc</span><span class="p">,</span> <span class="n">binding_rate</span><span class="p">):</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">f_clv</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_cleaved_fraction</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">binding_rate</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">over</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span> <span class="c1"># ignore RuntimeWarning: overflow</span>
+        <span class="n">k_eff</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">k</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span>
+            <span class="n">xdata</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>
+            <span class="n">ydata</span><span class="o">=</span><span class="n">f_clv</span><span class="p">,</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">k_eff</span>
+
+<span class="n">stc0</span> <span class="o">=</span> <span class="n">protein_sequence_complexes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">kfit0</span> <span class="o">=</span> <span class="n">get_cleavage_rate</span><span class="p">(</span><span class="n">stc0</span><span class="p">,</span> <span class="n">k_on_ref</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">stc0</span><span class="o">.</span><span class="n">get_cleaved_fraction</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">k_on_ref</span><span class="p">),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CRISPRzip prediction&#39;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span>
+<span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">kfit0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;exp. fit</span><span class="se">\n</span><span class="s1">(k=</span><span class="si">{</span><span class="n">kfit0</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> s⁻¹)&#39;</span>
+<span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;fraction cleaved $f_</span><span class="si">{clv}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/16e99f2afc74030037a36068d2ade89e0d19b1ad711939dba5177773535f05d0.png" src="../_images/16e99f2afc74030037a36068d2ade89e0d19b1ad711939dba5177773535f05d0.png" />
+</div>
+</div>
+<p>Coming back to our selection of off-targets, we’re curious which targets will get cleaved in a certain window of time. We can investigate this by making predictions with CRISPRzip. The Cas9 concentration also has an effect on this, an effect that we can quantify with the fit function that we defined above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># USER INPUT</span>
+
+<span class="c1"># plot 1: cleaved fraction vs time</span>
+<span class="n">concentration</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># nM</span>
+
+<span class="c1"># plot 2: cleavage rate vs concentration</span>
+<span class="n">conc_min</span> <span class="o">=</span> <span class="mf">.1</span>  <span class="c1"># nM</span>
+<span class="n">conc_max</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># nM</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axs_clv</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># plot 1: cleaved fraction vs time</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">7200</span><span class="p">))</span>
+<span class="n">binding_rate</span> <span class="o">=</span> <span class="n">k_on_ref</span> <span class="o">*</span> <span class="n">concentration</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_sequence_complexes</span><span class="p">):</span>
+    <span class="n">f_clv</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_cleaved_fraction</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">binding_rate</span><span class="p">)</span>
+    <span class="n">axs_clv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">f_clv</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)),</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;fraction cleaved $f_</span><span class="si">{clv}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot 2: cleavage rate vs time</span>
+<span class="n">dc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">conc_min</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">conc_max</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_sequence_complexes</span><span class="p">):</span>
+    <span class="n">k_fit</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_cleavage_rate</span><span class="p">(</span><span class="n">stc</span><span class="p">,</span> <span class="n">k_on_ref</span> <span class="o">*</span> <span class="n">conc</span><span class="p">)</span> <span class="k">for</span> <span class="n">conc</span> <span class="ow">in</span> <span class="n">dc</span><span class="p">]</span>
+    <span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">k_fit</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)),</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cas9 concentration (nM)&#39;</span><span class="p">)</span>
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cleavage rate $k_</span><span class="si">{clv}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">axs_clv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                  <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5e32dfbf280dc0ce9ea1c9e982be0ca4619eaa9e29a320f5aed23c62ebcd86fd.png" src="../_images/5e32dfbf280dc0ce9ea1c9e982be0ca4619eaa9e29a320f5aed23c62ebcd86fd.png" />
+</div>
+</div>
+</section>
+<section id="binding-activity">
+<h3>2.2 Binding activity<a class="headerlink" href="#binding-activity" title="Link to this heading"></a></h3>
+<p>For some applications, we are interested in the binding activity of catalytically inactive dCas9. CRISPRzip makes predictions about this too. See how our selection of on- and off-targets get bound as a function of time. Also, note that on on-targets the R-loop forms successfully, whereas off-targets are mostly only bound at their PAM site.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># USER INPUT</span>
+
+<span class="c1"># &#39;k_on_ref&#39; is the association rate at 1 nM (s⁻¹)</span>
+<span class="n">k_on_ref</span> <span class="o">=</span> <span class="mf">1E-2</span>
+<span class="n">concentration</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># nM</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axs_bnd_t</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># plot 1 &amp; 2: bound fraction vs time</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">7200</span><span class="p">))</span>
+<span class="n">binding_rate</span> <span class="o">=</span> <span class="n">k_on_ref</span> <span class="o">*</span> <span class="n">concentration</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_sequence_complexes</span><span class="p">):</span>
+    <span class="n">f_bnd_inclpam</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">binding_rate</span><span class="p">,</span> <span class="n">pam_inclusion</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">f_bnd_inclpam</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)),</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">f_bnd_exclpam</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">binding_rate</span><span class="p">,</span> <span class="n">pam_inclusion</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">dt</span><span class="p">,</span> <span class="n">f_bnd_exclpam</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)),</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;fraction bound $f_</span><span class="si">{bnd}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;R-loop + PAM binding&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;R-loop only&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+
+<span class="n">axs_bnd_t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                  <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f0fa999a28f72999939603da047df3ed8e32a9b1abf9ee8f01750833a35adb47.png" src="../_images/f0fa999a28f72999939603da047df3ed8e32a9b1abf9ee8f01750833a35adb47.png" />
+</div>
+</div>
+<p>This time, we might interested in how much target is bound as function of concentration. Again, we can fit a curve to get a physical parameter out, this time, the binding constant $K_D$. Below, we show what this could look like for the on-target.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axs_fit</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">incub_time</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span>  <span class="c1"># sec (= 24h)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_binding_const</span><span class="p">(</span><span class="n">stc</span><span class="p">,</span> <span class="n">ref_binding_rate</span><span class="p">):</span>
+    <span class="n">dc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">f_bnd</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span><span class="n">incub_time</span><span class="p">,</span> <span class="n">ref_binding_rate</span> <span class="o">*</span> <span class="n">dc</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">over</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span> <span class="c1"># ignore RuntimeWarning: overflow</span>
+        <span class="n">kd_fit</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">kd</span><span class="p">:</span> <span class="n">c</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">kd</span><span class="p">),</span>  <span class="c1"># binding/Hill curve</span>
+            <span class="n">xdata</span><span class="o">=</span><span class="n">dc</span><span class="p">,</span>
+            <span class="n">ydata</span><span class="o">=</span><span class="n">f_bnd</span><span class="p">,</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">kd_fit</span>
+
+<span class="n">stc0</span> <span class="o">=</span> <span class="n">protein_sequence_complexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">kd_fit0</span> <span class="o">=</span> <span class="n">get_binding_const</span><span class="p">(</span><span class="n">stc0</span><span class="p">,</span> <span class="n">k_on_ref</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span>  <span class="mi">4</span><span class="p">),</span>
+    <span class="n">stc0</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span><span class="n">incub_time</span><span class="p">,</span> <span class="n">k_on_ref</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CRISPRzip prediction&#39;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span>
+<span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">kd_fit0</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;binding curve</span><span class="se">\n</span><span class="s1">($K_D$=</span><span class="si">{</span><span class="n">kd_fit0</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> nM)&#39;</span>
+<span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cas9 concentration (nM)&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;fraction bound $f_</span><span class="si">{clv}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">axs_fit</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1207e6f5f68a270c120710521e0e23f47ff96858de0ff7bc7d696cae8a4f3147.png" src="../_images/1207e6f5f68a270c120710521e0e23f47ff96858de0ff7bc7d696cae8a4f3147.png" />
+</div>
+</div>
+<p>With this tool, we can look at the binding strength of on- and off-targets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axs_bnd_c</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># plot 1: binding constants</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">get_binding_const</span><span class="p">(</span><span class="n">stc</span><span class="p">,</span> <span class="n">k_on_ref</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">stc</span> <span class="ow">in</span> <span class="n">protein_sequence_complexes</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Association constant</span><span class="se">\n</span><span class="s1">$K_A=1/K_D$ ($nM^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="p">[</span><span class="s1">&#39;on-target&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+    <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># plot 2: bound fraction vs concentration</span>
+<span class="n">incub_time</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">50</span>  <span class="c1"># s (= 24h)</span>
+<span class="n">dc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span>  <span class="mi">4</span><span class="p">)</span>  <span class="c1"># concentration sweep</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">protein_sequence_complexes</span><span class="p">):</span>
+    <span class="n">f_bnd_c</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">get_bound_fraction</span><span class="p">(</span><span class="n">incub_time</span><span class="p">,</span> <span class="n">k_on_ref</span> <span class="o">*</span> <span class="n">dc</span><span class="p">)</span>
+    <span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">dc</span><span class="p">,</span> <span class="n">f_bnd_c</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;on-target&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;off-target </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Reds_r&#39;</span><span class="p">)(</span><span class="n">i</span><span class="o">/</span><span class="mi">6</span><span class="p">)),</span>
+        <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">.1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cas9 concentration (nM)&#39;</span><span class="p">)</span>
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;fraction bound $f_</span><span class="si">{bnd}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">axs_bnd_c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/771a349330f6a5f6912d8c571cf950d704241c20688d97d170a0f11624b07dc2.png" src="../_images/771a349330f6a5f6912d8c571cf950d704241c20688d97d170a0f11624b07dc2.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gettingstarted.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="code_structure.html" class="btn btn-neutral float-right" title="Code structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, HS Offerhaus, MIT license.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

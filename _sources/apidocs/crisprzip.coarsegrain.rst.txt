@@ -1,0 +1,7 @@
+crisprzip.coarsegrain module
+============================
+
+.. automodule:: crisprzip.coarsegrain
+   :members:
+   :show-inheritance:
+   :undoc-members:
