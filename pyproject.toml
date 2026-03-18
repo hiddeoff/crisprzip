@@ -9,7 +9,7 @@ version = "1.2.2"
 description = "A kinetic model of CRISPR-Cas target recognition."
 
 readme = {file = "README.md", content-type = "text/markdown"}
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 keywords = ["crispr-cas9", "crispr", "bioinformatics", "genome editing", "genetic engineering"]
 authors = [
