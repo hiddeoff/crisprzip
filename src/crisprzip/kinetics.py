@@ -408,7 +408,7 @@ class SearcherTargetComplex(Searcher):
              # PAM state
              np.array([self.internal_rates['k_off']]),
              # R-loop states
-             self.internal_rates['k_f'] * boltzmann_factors[1:],
+             self.get_forward_rate_array(1)[1:-2] * boltzmann_factors[1:],
              # cleaved state
              np.zeros(1))
         )
