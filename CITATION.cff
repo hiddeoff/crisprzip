@@ -1,10 +1,31 @@
 cff-version: 1.2.0
+title: "CRISPRzip"
+version: 1.2.3
+date-released: 2026-03-19
+license: MIT
 message: "If you are using this software, please cite it as shown below."
 authors:
 - family-names: "Offerhaus"
   given-names: "Hidde"
-title: "CRISPRzip"
-version: 1.0.0
-date-released: 2025-02-04
-license: MIT
-url: "https://github.com/hiddeoff/crisprzip-model"
+preferred-citation:
+  type: preprint
+  title: "A mechanistic free-energy model explains and predicts sequence- and context-dependent CRISPR–Cas9 activity"
+  authors:
+    - family-names: Offerhaus
+      given-names: Hidde S.
+    - family-names: Jaskovikaitė
+      given-names: Ieva
+    - family-names: Jones Jr.
+      given-names: Stephen K.
+    - family-names: Depken
+      given-names: Martin
+  year: 2025
+  doi: 10.1101/2025.12.12.691775
+  url: "https://www.biorxiv.org/content/10.1101/2025.12.12.691775"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.17818249
+    description: "Software release archived on Zenodo"
+  - type: url
+    value: "https://github.com/hiddeoff/crisprzip"
+    description: "GitHub repository"
