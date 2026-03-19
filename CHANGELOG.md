@@ -5,6 +5,15 @@ All notable changes to CRISPRzip will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2026-03-19
+
+### Fixed
+- Relaxed Python version requirements: now supports Python 3.13+ by default.
+
+### Added
+- Minor change in backward-rate definition to support (future) torque
+implementations.
+
 ## [1.2.2] - 2025-07-31
 
 ### Fixed
